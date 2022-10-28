@@ -4,7 +4,7 @@ import EnterElement from '../common/EnterElement';
 
 const LoginPage = () => {
   return (
-    <section class='loginPage'>
+    <section className="loginPage">
       <EnterElement
         labelText='Enter your username'
         type='text'

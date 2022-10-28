@@ -3,7 +3,7 @@
 const EnterElement = ({ labelText, ...props }) => {
   return (
     <div className='enterElementClass'>
-      <label for='inputElement'>{labelText}</label>
+      <label htmlFor='inputElement'>{labelText}</label>
       <input {...props} />
     </div>
   );
