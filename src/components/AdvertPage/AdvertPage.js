@@ -31,33 +31,31 @@ const AdvertPage = () => {
       let adsList;
       try {
         adsList = await getAdvertisements();
-        debugger;
         setAdvertisements(adsList);
       } catch (error) {
-        console.log('NO hay anuncios');
+        console.log('');
       }
     };
     getAds();
   }, []);
-  console.log(advertisements);
-  advertisements.map(ad=>console.log(ad))
+  
   return (
     <section className='advertPage'>
       <ul>
-        {advertisements.map((ad) => (
-          <li key={ad.id}>
-            {ad.name}, {ad.sale ? 'Vendo' : 'Compro'},{' '}
-            {ad.price},{' '}
-            {ad.tags.map((tag) => (
-              <p
-                key={tag}
-                className='tagParagraph'
-              >
-                {tag}
-              </p>
-            ))}
-          </li>
-        ))}
+        {
+          advertisements.length ?
+          advertisements.map((ad)=>(
+            <li key={ad.id}>
+              {ad.name}, {ad.sale ? 'Vendo' : 'Compro'}, {ad.price}, 
+              {ad.tags.map((tag)=>(
+                <p key={tag} className='tagParagraph'>{tag}</p>
+              ))}
+            </li>
+          ))
+          : (
+            <button>Crea tu primer anuncio</button>
+          )
+        }
       </ul>
     </section>
   );
