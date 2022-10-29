@@ -12,6 +12,7 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
   const [email, setEmail] = useState([]);
   const [name, setName] = useState([]);
   const [remember, setRemember] = useState(false);
+  const [error, setError] = useState(false);
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'username') {
@@ -50,9 +51,14 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
         await login({ email, password }, remember);
         onLogin();
       } catch (error) {
-        console.log(error);
+        setError(error);
       }
     }
+  };
+
+  const handleErrorMessageClick = (event) => {
+    event.preventDefault();
+    setError(false);
   };
 
   return (
@@ -99,7 +105,6 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
             onChange={enterElementHandleChange}
             checked={remember}
           />
-          
         )}
         {!isSignUp && (
           <EnterElement
@@ -108,7 +113,6 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
             name='file'
             onChange={enterElementHandleChange}
           />
-          
         )}
         <button
           type='submit'
@@ -117,6 +121,15 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
           {isSignUp ? 'Sign Up' : 'Login In'}
         </button>
       </form>
+      {error && (
+        <div
+          className={styles.errorMessageClass}
+          onClick={handleErrorMessageClick}
+        >
+          {error.message}
+          {-error.status || 'Test your cable'}
+        </div>
+      )}
     </section>
   );
 };

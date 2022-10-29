@@ -23,3 +23,8 @@ form {
 button{
   clear: left;
 }
+
+.errorMessageClass{
+  background-color: lightpink;
+  color: darkred;
+}
