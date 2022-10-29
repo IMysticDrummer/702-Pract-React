@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { getAdvertisements } from './service';
+import classNames from 'classnames';
+import './AdvertPage.css';
 
 // const advertisements2 = [
 //   {
@@ -25,7 +27,7 @@ import { getAdvertisements } from './service';
 const AdvertPage = () => {
   const [advertisements, setAdvertisements] = useState([]);
   //useEffect(()=>{setAdvertisements(advertisements2)},[])
-  
+
   useEffect(() => {
     const getAds = async () => {
       let adsList;
@@ -38,24 +40,28 @@ const AdvertPage = () => {
     };
     getAds();
   }, []);
-  
+
+  const sectionClassName = classNames('advertPage', {empty: !advertisements.length})
   return (
-    <section className='advertPage'>
+    <section className={sectionClassName}>
       <ul>
-        {
-          advertisements.length ?
-          advertisements.map((ad)=>(
+        {advertisements.length ? (
+          advertisements.map((ad) => (
             <li key={ad.id}>
-              {ad.name}, {ad.sale ? 'Vendo' : 'Compro'}, {ad.price}, 
-              {ad.tags.map((tag)=>(
-                <p key={tag} className='tagParagraph'>{tag}</p>
+              {ad.name}, {ad.sale ? 'Vendo' : 'Compro'}, {ad.price},
+              {ad.tags.map((tag) => (
+                <p
+                  key={tag}
+                  className='tagParagraph'
+                >
+                  {tag}
+                </p>
               ))}
             </li>
           ))
-          : (
-            <button>Crea tu primer anuncio</button>
-          )
-        }
+        ) : (
+          <button>Crea tu primer anuncio</button>
+        )}
       </ul>
     </section>
   );
