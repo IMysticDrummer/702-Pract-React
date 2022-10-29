@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getAdvertisements } from './service';
 import classNames from 'classnames';
-import styles from './AdvertPage.module.css';
+import styles from './AdvertsPage.module.css';
 
 // const advertisements2 = [
 //   {
@@ -24,7 +24,7 @@ import styles from './AdvertPage.module.css';
 //   },
 // ];
 
-const AdvertPage = () => {
+const AdvertsPage = () => {
   const [advertisements, setAdvertisements] = useState([]);
   //useEffect(()=>{setAdvertisements(advertisements2)},[])
 
@@ -41,7 +41,7 @@ const AdvertPage = () => {
     getAds();
   }, []);
 
-  const sectionClassName = classNames(styles.advertPage, {[styles.empty]: !advertisements.length})
+  const sectionClassName = classNames(styles.AdvertsPage, {[styles.empty]: !advertisements.length})
   return (
     <section className={sectionClassName}>
       <ul>
@@ -67,4 +67,4 @@ const AdvertPage = () => {
   );
 };
 
-export default AdvertPage;
+export default AdvertsPage;

@@ -1,4 +1,4 @@
-import AdvertPage from './components/AdvertPage/AdvertPage';
+import AdvertsPage from './components/AdvertsPage/AdvertsPage';
 import SignInUpPage from './components/auth/SignInUpPage';
 import Layout from './components/Layout/Layout.js';
 import styles from './App.module.css';
@@ -12,7 +12,7 @@ function App() {
           <SignInUpPage />
         </section>
         <section>
-          <AdvertPage />
+          <AdvertsPage />
         </section>
       </Layout>
     </div>
