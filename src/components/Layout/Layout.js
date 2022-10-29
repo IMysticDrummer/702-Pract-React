@@ -10,6 +10,7 @@ const Layout = ({ title, subTitle, children, className, ...props }) => {
     <main className={classNames(styles.layoutMainClass, className)}>
       <Header
         title={title}
+        isLogged={props.isLogged}
         onLogout={props.onLogout}
       ></Header>
       <h2>{subTitle}</h2>
