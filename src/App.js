@@ -6,15 +6,17 @@ import styles from './App.module.css';
 function App() {
   return (
     <div className='app'>
-      <Layout title='NODEPOP. Your second-hand sell/buy web' subTitle='Advertisements for you!'>
+      <Layout
+        title='NODEPOP. Your second-hand sell/buy web'
+        subTitle='Sign In for a full experience!'
+      >
         <section className={styles.signSectionClass}>
-          <SignInUpPage isSignIn='true' /> 
+          <SignInUpPage isSignIn='true' />
           <SignInUpPage />
         </section>
-        <section>
-          <AdvertsPage />
-        </section>
       </Layout>
+      <AdvertsPage />
+      
     </div>
   );
 }

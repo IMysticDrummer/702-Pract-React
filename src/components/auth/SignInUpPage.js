@@ -4,11 +4,10 @@ import EnterElement from '../common/EnterElement';
 import styles from './SignInUpPage.module.css';
 
 const SignInUpPage = ({ isSignIn }) => {
-
-  const buttonClickHandle=(event) => {
+  const buttonClickHandle = (event) => {
     event.preventDefault();
     console.log('Has hecho click');
-  }
+  };
   return (
     <section className={styles.signInUpPage}>
       <h1>Sign {isSignIn ? 'In' : 'Up'}</h1>
@@ -43,7 +42,9 @@ const SignInUpPage = ({ isSignIn }) => {
           />
         </article>
       )}
-      <button onClick={buttonClickHandle}>{isSignIn ? 'Sign In' : 'Sign Up'}</button>
+      <button onClick={buttonClickHandle}>
+        {isSignIn ? 'Sign In' : 'Sign Up'}
+      </button>
     </section>
   );
 };
