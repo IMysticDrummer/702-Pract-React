@@ -1,7 +1,8 @@
 import AdvertsPage from './components/AdvertsPage/AdvertsPage';
-import SignInUpPage from './components/auth/SignInUpPage';
+import LoginPage from './components/auth/LoginPage';
 import Layout from './components/Layout/Layout.js';
 import styles from './App.module.css';
+import NewAdvertPage from './components/AdvertsPage/NewAdvertPage.js';
 
 function App() {
   return (
@@ -11,12 +12,12 @@ function App() {
         subTitle='Sign In for a full experience!'
       >
         <section className={styles.signSectionClass}>
-          <SignInUpPage isSignIn='true' />
-          <SignInUpPage />
+          <LoginPage isSignUp='true' />
+          <LoginPage />
         </section>
       </Layout>
       <AdvertsPage />
-      
+      <NewAdvertPage />
     </div>
   );
 }

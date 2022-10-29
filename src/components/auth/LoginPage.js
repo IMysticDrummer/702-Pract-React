@@ -1,17 +1,17 @@
 'use strict';
 
 import EnterElement from '../common/EnterElement';
-import styles from './SignInUpPage.module.css';
+import styles from './LoginPage.module.css';
 
-const SignInUpPage = ({ isSignIn }) => {
+const LoginPage = ({ isSignUp }) => {
   const buttonClickHandle = (event) => {
     event.preventDefault();
     console.log('Has hecho click');
   };
   return (
-    <section className={styles.signInUpPage}>
-      <h1>Sign {isSignIn ? 'In' : 'Up'}</h1>
-      {isSignIn ? (
+    <section className={styles.LoginPage}>
+      <h1>{isSignUp ? 'Sign Up' : 'Login'}</h1>
+      {!isSignUp ? (
         <article>
           <EnterElement
             labelText='Enter your username'
@@ -43,10 +43,10 @@ const SignInUpPage = ({ isSignIn }) => {
         </article>
       )}
       <button onClick={buttonClickHandle}>
-        {isSignIn ? 'Sign In' : 'Sign Up'}
+        {isSignUp ? 'Login In' : 'Sign Up'}
       </button>
     </section>
   );
 };
 
-export default SignInUpPage;
+export default LoginPage;
