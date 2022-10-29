@@ -99,6 +99,16 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
             onChange={enterElementHandleChange}
             checked={remember}
           />
+          
+        )}
+        {!isSignUp && (
+          <EnterElement
+            labelText='Remember me'
+            type='file'
+            name='file'
+            onChange={enterElementHandleChange}
+          />
+          
         )}
         <button
           type='submit'

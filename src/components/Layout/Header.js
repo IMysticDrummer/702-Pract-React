@@ -1,12 +1,11 @@
 'use strict';
 
-const Header = ({ title }) => {
+const Header = ({ title, ...props }) => {
   return (
     <header>
       <h1>{title || 'NODEPOP. Your second-hand sell/buy web'}</h1>
       <nav>
-        <button>Sign In</button>
-        <button>Sign Up</button>
+        <button onClick={props.onLogout}>Sign Out</button>
       </nav>
     </header>
   );
