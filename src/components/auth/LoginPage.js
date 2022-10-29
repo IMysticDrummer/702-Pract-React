@@ -97,6 +97,7 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
             type='checkbox'
             name='remember'
             onChange={enterElementHandleChange}
+            checked={remember}
           />
         )}
         <button
