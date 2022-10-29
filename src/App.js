@@ -3,22 +3,12 @@ import LoginPage from './components/auth/LoginPage';
 import Layout from './components/Layout/Layout.js';
 import styles from './App.module.css';
 import NewAdvertPage from './components/AdvertsPage/NewAdvertPage.js';
-import { setAuthorizationHeader } from './api/client.js';
-import { useEffect, useState } from 'react';
-import storage from './utils/storage';
+import { useState } from 'react';
 
-function App() {
-  const [isLogged, setIsLogged] = useState(false);
+function App({ isInitiallyLogged }) {
+  const [isLogged, setIsLogged] = useState(isInitiallyLogged);
 
   const setLoginTrue = () => setIsLogged(true);
-
-  useEffect(() => {
-    const token = storage.get('token');
-    if (token) {
-      setAuthorizationHeader(token);
-      setLoginTrue();
-    }
-  }, []);
 
   return (
     <div className='app'>
