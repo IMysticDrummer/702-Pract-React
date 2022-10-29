@@ -5,6 +5,7 @@ import styles from './App.module.css';
 import NewAdvertPage from './components/AdvertsPage/NewAdvertPage.js';
 import { setAuthorizationHeader } from './api/client.js';
 import { useEffect, useState } from 'react';
+import storage from './utils/storage';
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -12,7 +13,7 @@ function App() {
   const setLoginTrue = () => setIsLogged(true);
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = storage.get('token');
     if (token) {
       setAuthorizationHeader(token);
       setLoginTrue();
