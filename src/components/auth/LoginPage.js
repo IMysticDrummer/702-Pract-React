@@ -13,6 +13,7 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
   const [name, setName] = useState([]);
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'username') {
@@ -34,7 +35,7 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
 
   const disableButton = () => {
     if (!isSignUp) {
-      return !(email.length !== 0 && password.length !== 0);
+      return !(email.length !== 0 && password.length !== 0 && !isFetching);
     }
     return !(
       username.length !== 0 &&
@@ -48,17 +49,20 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
     event.preventDefault();
     if (!isSignUp) {
       try {
+        setError(null);
+        setIsFetching(true);
         await login({ email, password }, remember);
         onLogin();
       } catch (error) {
         setError(error);
       }
+      setIsFetching(false);
     }
   };
 
   const handleErrorMessageClick = (event) => {
     event.preventDefault();
-    setError(false);
+    setError(null);
   };
 
   return (
