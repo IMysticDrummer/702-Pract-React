@@ -3,21 +3,37 @@ import LoginPage from './components/auth/LoginPage';
 import Layout from './components/Layout/Layout.js';
 import styles from './App.module.css';
 import NewAdvertPage from './components/AdvertsPage/NewAdvertPage.js';
+import { setAuthorizationHeader } from './api/client.js';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [isLogged, setIsLogged] = useState(false);
+
+  const setLoginTrue = () => setIsLogged(true);
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (token) {
+      setAuthorizationHeader(token);
+      setLoginTrue();
+    }
+  }, []);
+
   return (
     <div className='app'>
       <Layout
         title='NODEPOP. Your second-hand sell/buy web'
         subTitle='Sign In for a full experience!'
-      >
+      ></Layout>
+
+      {!isLogged ? (
         <section className={styles.signSectionClass}>
           <LoginPage isSignUp='true' />
-          <LoginPage />
+          <LoginPage onLogin={setLoginTrue} />
         </section>
-      </Layout>
-      <AdvertsPage />
-      <NewAdvertPage />
+      ) : (
+        <AdvertsPage />
+      )}
     </div>
   );
 }

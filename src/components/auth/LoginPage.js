@@ -4,12 +4,14 @@ import { useState } from 'react';
 import EnterElement from '../common/EnterElement';
 import classNames from 'classnames';
 import styles from './LoginPage.module.css';
+import { login } from './service';
 
-const LoginPage = ({ isSignUp, className }) => {
+const LoginPage = ({ isSignUp, className, onLogin }) => {
   const [username, setUsername] = useState([]);
   const [password, setPassword] = useState([]);
   const [email, setEmail] = useState([]);
   const [name, setName] = useState([]);
+  const [remember, setRemember] = useState(false);
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'username') {
@@ -24,29 +26,33 @@ const LoginPage = ({ isSignUp, className }) => {
     if (event.target.name === 'name') {
       setName(event.target.value);
     }
+    if (event.target.name === 'remember') {
+      setRemember((remember) => !remember);
+    }
   };
 
   const disableButton = () => {
     if (!isSignUp) {
-      return !(username.length!==0 && password.length!==0);
+      return !(email.length !== 0 && password.length !== 0);
     }
-    return !(username.length!==0 && password.length!==0 && email.length!==0 && name.length!==0);
+    return !(
+      username.length !== 0 &&
+      password.length !== 0 &&
+      email.length !== 0 &&
+      name.length !== 0
+    );
   };
 
-  // useEffect(() => {
-
-  //    enableButton();
-  //  }, []);
-
-  // const buttonClickHandle = (event) => {
-  //   event.preventDefault();
-  //   console.log('Has hecho click');
-
-  // };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(username, password);
+    if (!isSignUp) {
+      try {
+        await login({ email, password }, remember);
+        onLogin();
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -56,27 +62,27 @@ const LoginPage = ({ isSignUp, className }) => {
         {isSignUp && (
           <div>
             <EnterElement
-              labelText='Enter your email'
-              type='email'
-              name='email'
-              onChange={enterElementHandleChange}
-              value={email}
-            />
-            <EnterElement
               labelText='Enter your name'
               type='text'
               name='name'
               onChange={enterElementHandleChange}
               value={name}
             />
+            <EnterElement
+              labelText='Enter your username'
+              type='text'
+              name='username'
+              onChange={enterElementHandleChange}
+              value={username}
+            />
           </div>
         )}
         <EnterElement
-          labelText='Enter your username'
-          type='text'
-          name='username'
+          labelText='Enter your email'
+          type='email'
+          name='email'
           onChange={enterElementHandleChange}
-          value={username}
+          value={email}
         />
         <EnterElement
           labelText='Enter your password'
@@ -85,6 +91,14 @@ const LoginPage = ({ isSignUp, className }) => {
           onChange={enterElementHandleChange}
           value={password}
         />
+        {!isSignUp && (
+          <EnterElement
+            labelText='Remember me'
+            type='checkbox'
+            name='remember'
+            onChange={enterElementHandleChange}
+          />
+        )}
         <button
           type='submit'
           disabled={disableButton()}
