@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import styles from './AdvertsPage.module.css';
 import Layout from '../Layout/Layout.js';
 
-const AdvertsPage = () => {
+const AdvertsPage = ({className}) => {
   const [advertisements, setAdvertisements] = useState([]);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const AdvertsPage = () => {
     getAds();
   }, []);
 
-  const sectionClassName = classNames(styles.AdvertsPage, {
+  const sectionClassName = classNames(styles.AdvertsPage, className, {
     [styles.empty]: !advertisements.length,
   });
   return (

@@ -1,10 +1,13 @@
 'use stric';
 
 import Header from './Header.js';
+import classNames from 'classnames';
 
-const Layout = ({ title, subTitle, children }) => {
+import styles from './Layout.module.css';
+
+const Layout = ({ title, subTitle, children, className }) => {
   return (
-    <main>
+    <main className={classNames(styles.layoutMainClass, className)}>
       <Header title={title}></Header>
       <h2>{subTitle}</h2>
       {children}
