@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getAdvertisements } from './service';
 import classNames from 'classnames';
-import './AdvertPage.css';
+import styles from './AdvertPage.module.css';
 
 // const advertisements2 = [
 //   {
@@ -41,7 +41,7 @@ const AdvertPage = () => {
     getAds();
   }, []);
 
-  const sectionClassName = classNames('advertPage', {empty: !advertisements.length})
+  const sectionClassName = classNames(styles.advertPage, {[styles.empty]: !advertisements.length})
   return (
     <section className={sectionClassName}>
       <ul>

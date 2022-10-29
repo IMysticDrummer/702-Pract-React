@@ -1,0 +1,25 @@
+.signInUpPage{
+  background-color: lightblue;
+  color: darkblue;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+  left: auto;
+  right: auto;
+  width: 46%;
+}
+
+h1{
+  width: 100%;
+}
+article {
+  position: relative;
+  left: auto;
+  right: auto;
+  width: 100%;
+  margin-bottom: 10px;
+}
+button{
+  clear: left;
+}

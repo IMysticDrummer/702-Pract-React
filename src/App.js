@@ -1,5 +1,5 @@
 import AdvertPage from './components/AdvertPage/AdvertPage';
-import LoginPage from './components/auth/LoginPage';
+import SignInUpPage from './components/auth/SignInUpPage';
 import './App.css';
 
 function App() {
@@ -7,7 +7,10 @@ function App() {
     <div className='app'>
       hello react!!
       <main>
-        <LoginPage />
+        <section className='singSectionClass'>
+          <SignInUpPage isSignIn='true'/>
+          <SignInUpPage />
+        </section>
         <AdvertPage />
       </main>
     </div>
