@@ -1,10 +1,11 @@
 'use strict';
 
 import client, { setAuthorizationHeader } from '../../api/client';
+import storage from '../../utils/storage';
 
 export const login = (credentials, remember) => {
   return client.post('/auth/login', credentials).then(({ accessToken }) => {
     setAuthorizationHeader(accessToken);
-    remember && localStorage.setItem('token', JSON.stringify(accessToken));
+    remember && storage.set('token', JSON.stringify(accessToken));
   });
 };
