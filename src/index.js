@@ -7,6 +7,7 @@ import {
   removeAuthorizationHeader,
   setAuthorizationHeader,
 } from "./api/client";
+import { BrowserRouter as Router } from "react-router-dom";
 
 //Test if it's initially logged
 const accessToken = storage.get("token");
@@ -23,9 +24,11 @@ const handleLogout = () => {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App
-      isInitiallyLogged={!!accessToken}
-      onLogout={handleLogout}
-    />
+    <Router>
+      <App
+        isInitiallyLogged={!!accessToken}
+        onLogout={handleLogout}
+      />
+    </Router>
   </React.StrictMode>
 );

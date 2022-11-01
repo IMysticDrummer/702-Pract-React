@@ -6,13 +6,13 @@ import Layout from '../Layout/Layout.js';
 
 /**
  * Advertisement component.
- * Recives the title and subtitle of the page.
+ * Recives the title and subTitle of the page.
  * Recives if the user is logged.
  * Recives a function to manage the onLogout event
- * @param {title:string, subtitle:string, isLogged:boolean, onLogout:function, className:string} param0 
+ * @param {title:string, subTitle:string, isLogged:boolean, onLogout:function, className:string} param0 
  * @returns React.Component
  */
-const AdvertsPage = ({title, subtitle, isLogged, onLogout, className}) => {
+const AdvertsPage = ({title, subTitle, isLogged, onLogout, className}) => {
   const [advertisements, setAdvertisements] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const AdvertsPage = ({title, subtitle, isLogged, onLogout, className}) => {
   return (
     <Layout
       title={title}
-      subTitle={subtitle}
+      subTitle={subTitle}
       isLogged={isLogged}
       onLogout={onLogout}
     >

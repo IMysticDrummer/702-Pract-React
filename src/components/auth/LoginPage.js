@@ -1,5 +1,3 @@
-'use strict';
-
 import { useState } from 'react';
 import EnterElement from '../common/EnterElement';
 import classNames from 'classnames';
