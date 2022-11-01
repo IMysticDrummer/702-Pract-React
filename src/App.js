@@ -36,8 +36,20 @@ function App({ isInitiallyLogged, onLogout }) {
             onLogout={setLogout}
           />}
         />
-            <Route path="/adverts/:id" element={<AdvertPage subTitle='Wellcome to your commerce world!' />} />
-            <Route path="/adverts/new" element={<NewAdvertPage subTitle='What do you want to buy/sell?' />} />
+        <Route path="/adverts/:id" element={<AdvertPage
+          title={title}
+          subTitle='Wellcome to your commerce world!'
+          isLogged={isLogged}
+          onLogout={setLogout}
+          />}
+        />
+        <Route path="/adverts/new" element={<NewAdvertPage
+          title={title}
+          subTitle='What do you want to buy/sell?'
+          isLogged={isLogged}
+          onLogout={setLogout}          
+          />}
+        />
         <Route path="/404" element={<div>404 | Not Found</div>} />
         <Route path="*" element={<Navigate to='/404' />} />
       </Routes>

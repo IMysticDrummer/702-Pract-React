@@ -3,6 +3,7 @@ import { getAdvertisements } from './service';
 import classNames from 'classnames';
 import styles from './AdvertsPage.module.css';
 import Layout from '../Layout/Layout.js';
+import { Link } from 'react-router-dom';
 
 /**
  * Advertisement component.
@@ -43,15 +44,17 @@ const AdvertsPage = ({title, subTitle, isLogged, onLogout, className}) => {
           {advertisements.length ? (
             advertisements.map((ad) => (
               <li key={ad.id}>
-                {ad.name}, {ad.sale ? 'Vendo' : 'Compro'}, {ad.price},
-                {ad.tags.map((tag) => (
-                  <p
-                    key={tag}
-                    className='tagParagraph'
-                  >
-                    {tag}
-                  </p>
-                ))}
+                <Link to={`/adverts/${ad.id}`}>
+                  {ad.name}, {ad.sale ? 'Vendo' : 'Compro'}, {ad.price},
+                  {ad.tags.map((tag) => (
+                    <p
+                      key={tag}
+                      className='tagParagraph'
+                    >
+                      {tag}
+                    </p>
+                  ))}
+                </Link>
               </li>
             ))
           ) : (
