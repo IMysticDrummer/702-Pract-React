@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../Layout/Layout.js";
+import Page from "../Layout/Page.js";
 import { getAdById } from "./service.js";
 
 const AdvertPage = ({ subTitle, isLogged, onLogout }) => {
@@ -22,12 +23,12 @@ const AdvertPage = ({ subTitle, isLogged, onLogout }) => {
   }, [id]);
 
   return (
-    <Layout
+    <Page
       subTitle={subTitle}
       isLogged={isLogged}
       onLogout={onLogout}
     >
-      <Fragment>
+      <section>
         {!advertisement.error ? 
           (
             <Fragment>
@@ -45,8 +46,8 @@ const AdvertPage = ({ subTitle, isLogged, onLogout }) => {
             </Fragment>
           )
         }
-      </Fragment>
-    </Layout>
+      </section>
+    </Page>
   );
 };
 

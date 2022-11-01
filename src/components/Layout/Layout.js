@@ -1,11 +1,10 @@
-'use stric';
-
 import Header from './Header.js';
 import classNames from 'classnames';
 
 import styles from './Layout.module.css';
+import { Outlet } from 'react-router-dom';
 
-const Layout = ({ title, subTitle, children, className, ...props }) => {
+const Layout = ({ title, children, className, ...props }) => {
   return (
     <main className={classNames(styles.layoutMainClass, className)}>
       <Header
@@ -13,8 +12,9 @@ const Layout = ({ title, subTitle, children, className, ...props }) => {
         isLogged={props.isLogged}
         onLogout={props.onLogout}
       ></Header>
-      <h2>{subTitle}</h2>
-      {children}
+      <main>
+        <Outlet />
+      </main>
       <footer>@ 2022 Iván García & Keepcoding</footer>
     </main>
   );

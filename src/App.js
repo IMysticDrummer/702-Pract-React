@@ -2,11 +2,12 @@ import AdvertsPage from "./components/AdvertsPage/AdvertsPage";
 import LoginPage from "./components/auth/LoginPage";
 import styles from "./App.module.css";
 import NewAdvertPage from "./components/AdvertsPage/NewAdvertPage.js";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Layout from "./components/Layout/Layout";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AdvertPage from "./components/AdvertsPage/AdvertPage";
-import RequireAuth from "./components/auth/RqeuireAuth";
+import RequireAuth from "./components/auth/RequireAuth";
+import Page from "./components/Layout/Page";
 
 function App({ isInitiallyLogged, onLogout }) {
   const [isLogged, setIsLogged] = useState(isInitiallyLogged);
@@ -21,48 +22,46 @@ function App({ isInitiallyLogged, onLogout }) {
   return (
     <div className='app'>
       <Routes>
+
         <Route path="/login" element={
-          <section className={styles.signSectionClass}>
-            <Layout title={title} subTitle='Sign up / Sign in for a full experience!!'>
+          <Fragment>
+            <Layout title={title} isLogged={isLogged} onLogout={setLogout} />
+            <Page subTitle='Sign up / Sign in for a full experience!!' >
               <LoginPage onLogin={setLoginTrue} />
               <LoginPage isSignUp='true' />
-            </Layout>
-          </section>}
+            </Page>
+          </Fragment>}
         />
+
         <Route path="/" element={<Navigate to='/adverts'/>} />
         
-          <Route path="/adverts" element={
+        <Route path="/adverts" element={<Layout title={title} isLogged={isLogged}
+                onLogout={setLogout}/>} >
+
+          <Route index element={
             <RequireAuth isLogged={isLogged}>
               <AdvertsPage
-                title={title}
                 subTitle='Wellcome to your commerce world!'
-                isLogged={isLogged}
-                onLogout={setLogout}
               />
             </RequireAuth>}
           />
         
-          <Route path="/adverts/:id" element={
+          <Route path=":id" element={
             <RequireAuth  isLogged={isLogged}>
               <AdvertPage
-                title={title}
                 subTitle='Wellcome to your commerce world!'
-                isLogged={isLogged}
-                onLogout={setLogout}
               />
             </RequireAuth>}
           />
         
-          <Route path="/adverts/new" element={
+          <Route path="new" element={
             <RequireAuth  isLogged={isLogged}>
               <NewAdvertPage
-                title={title}
                 subTitle='What do you want to buy/sell?'
-                isLogged={isLogged}
-                onLogout={setLogout}          
               />
             </RequireAuth>}
           />
+        </Route>
         
         <Route path="/404" element={<div>404 | Not Found</div>} />
         <Route path="*" element={<Navigate to='/404' />} />

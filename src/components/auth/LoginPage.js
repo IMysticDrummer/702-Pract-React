@@ -4,6 +4,7 @@ import classNames from "classnames";
 import styles from "./LoginPage.module.css";
 import { login } from "./service";
 import { useLocation, useNavigate } from "react-router-dom";
+import Page from "../Layout/Page";
 
 const LoginPage = ({ isSignUp, className, onLogin }) => {
   const [username, setUsername] = useState([]);

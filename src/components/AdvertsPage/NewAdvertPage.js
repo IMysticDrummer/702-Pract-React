@@ -1,9 +1,8 @@
 
-
-import Layout from '../Layout/Layout.js';
+import Page from '../Layout/Page.js';
 
 const NewAdvertPage = ({subTitle, isLogged, onLogout}) => {
-  return <Layout subTitle={subTitle} isLogged={isLogged} onLogout={onLogout}><span>Esto es new advert page</span></Layout>;
+  return <Page subTitle={subTitle} isLogged={isLogged} onLogout={onLogout}><span>Esto es new advert page</span></Page>;
 };
 
 export default NewAdvertPage;

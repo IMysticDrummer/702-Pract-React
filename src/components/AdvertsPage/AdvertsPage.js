@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { getAdvertisements } from './service';
 import classNames from 'classnames';
 import styles from './AdvertsPage.module.css';
 import Layout from '../Layout/Layout.js';
 import { Link } from 'react-router-dom';
+import Page from '../Layout/Page';
 
 /**
  * Advertisement component.
@@ -33,7 +34,7 @@ const AdvertsPage = ({title, subTitle, isLogged, onLogout, className}) => {
     [styles.empty]: !advertisements.length,
   });
   return (
-    <Layout
+    <Page
       title={title}
       subTitle={subTitle}
       isLogged={isLogged}
@@ -62,7 +63,7 @@ const AdvertsPage = ({title, subTitle, isLogged, onLogout, className}) => {
           )}
         </ul>
       </section>
-    </Layout>
+    </Page>
   );
 };
 
