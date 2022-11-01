@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import EnterElement from '../common/EnterElement';
-import classNames from 'classnames';
-import styles from './LoginPage.module.css';
-import { login } from './service';
+import { useState } from "react";
+import EnterElement from "../common/EnterElement";
+import classNames from "classnames";
+import styles from "./LoginPage.module.css";
+import { login } from "./service";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LoginPage = ({ isSignUp, className, onLogin }) => {
   const [username, setUsername] = useState([]);
@@ -12,21 +13,23 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const enterElementHandleChange = (event) => {
-    if (event.target.name === 'username') {
+    if (event.target.name === "username") {
       setUsername(event.target.value);
     }
-    if (event.target.name === 'password') {
+    if (event.target.name === "password") {
       setPassword(event.target.value);
     }
-    if (event.target.name === 'email') {
+    if (event.target.name === "email") {
       setEmail(event.target.value);
     }
-    if (event.target.name === 'name') {
+    if (event.target.name === "name") {
       setName(event.target.value);
     }
-    if (event.target.name === 'remember') {
+    if (event.target.name === "remember") {
       setRemember((remember) => !remember);
     }
   };
@@ -51,6 +54,8 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
         setIsFetching(true);
         await login({ email, password }, remember);
         onLogin();
+        const to = location.state?.from?.pathname || "/";
+        navigate(to, {replace: true});
       } catch (error) {
         setError(error);
       }
@@ -65,7 +70,7 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
 
   return (
     <section className={classNames(styles.LoginPage, className)}>
-      <h1>{isSignUp ? 'Sign Up' : 'Login'}</h1>
+      <h1>{isSignUp ? "Sign Up" : "Login"}</h1>
       <form onSubmit={handleSubmit}>
         {isSignUp && (
           <div>
@@ -120,7 +125,7 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
           type='submit'
           disabled={disableButton()}
         >
-          {isSignUp ? 'Sign Up' : 'Login In'}
+          {isSignUp ? "Sign Up" : "Login In"}
         </button>
       </form>
       {error && (
@@ -129,7 +134,7 @@ const LoginPage = ({ isSignUp, className, onLogin }) => {
           onClick={handleErrorMessageClick}
         >
           {error.message}
-          {-error.status || 'Test your cable'}
+          {-error.status || "Test your cable"}
         </div>
       )}
     </section>
