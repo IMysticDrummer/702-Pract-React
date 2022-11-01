@@ -1,12 +1,18 @@
-'use strict';
-
 import { useEffect, useState } from 'react';
 import { getAdvertisements } from './service';
 import classNames from 'classnames';
 import styles from './AdvertsPage.module.css';
 import Layout from '../Layout/Layout.js';
 
-const AdvertsPage = ({className}) => {
+/**
+ * Advertisement component.
+ * Recives the title and subtitle of the page.
+ * Recives if the user is logged.
+ * Recives a function to manage the onLogout event
+ * @param {title:string, subtitle:string, isLogged:boolean, onLogout:function, className:string} param0 
+ * @returns React.Component
+ */
+const AdvertsPage = ({title, subtitle, isLogged, onLogout, className}) => {
   const [advertisements, setAdvertisements] = useState([]);
 
   useEffect(() => {
@@ -27,8 +33,10 @@ const AdvertsPage = ({className}) => {
   });
   return (
     <Layout
-      title='NODEPOP. Your second-hand sell/buy web'
-      subTitle='Advertisements for you!'
+      title={title}
+      subTitle={subtitle}
+      isLogged={isLogged}
+      onLogout={onLogout}
     >
       <section className={sectionClassName}>
         <ul>

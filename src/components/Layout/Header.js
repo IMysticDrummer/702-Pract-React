@@ -1,11 +1,11 @@
-'use strict';
 
-const Header = ({ title, ...props }) => {
+
+const Header = ({ title, isLogged, onLogout }) => {
   return (
     <header>
       <h1>{title || 'NODEPOP. Your second-hand sell/buy web'}</h1>
       <nav>
-        {props.isLogged && <button onClick={props.onLogout}>Sign Out</button>}
+        {isLogged && <button onClick={onLogout}>Sign Out</button>}
       </nav>
     </header>
   );

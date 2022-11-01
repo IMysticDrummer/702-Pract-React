@@ -1,19 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import storage from './utils/storage';
-import { setAuthorizationHeader } from './api/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import storage from "./utils/storage";
+import {
+  removeAuthorizationHeader,
+  setAuthorizationHeader,
+} from "./api/client";
 
-const accessToken = storage.get('token');
+//Test if it's initially logged
+const accessToken = storage.get("token");
 setAuthorizationHeader(accessToken);
 
+/**
+ * Removes the authorisation
+ */
 const handleLogout = () => {
-  setAuthorizationHeader('');
-  storage.remove('token');
+  removeAuthorizationHeader();
+  storage.remove("token");
 };
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App

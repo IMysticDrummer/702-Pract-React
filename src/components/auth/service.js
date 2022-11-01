@@ -1,5 +1,3 @@
-'use strict';
-
 import client, { setAuthorizationHeader } from '../../api/client';
 import storage from '../../utils/storage';
 
