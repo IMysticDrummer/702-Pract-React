@@ -2,7 +2,13 @@
   background-color: darkblue;
   color: whitesmoke;
   font-size: 1rem;
+  text-decoration: none;
 
+}
+
+.AdvertsPage *{
+  text-decoration: inherit;
+  color: inherit;
 }
 
 .empty{

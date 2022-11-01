@@ -3,11 +3,15 @@
   font-size: 1.1rem;
 }
 
-.navLink{
+.header-nav *{
   margin: 0 5px;
   text-decoration: inherit;
   font-size: inherit;
   color: darkblue;
+}
+
+.header-nav button{
+  font-size: 0.8rem;
 }
 
 .active{
