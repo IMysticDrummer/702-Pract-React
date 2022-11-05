@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import EnterElement from '../common/EnterElement.js';
+import ErrorElement from '../common/ErrorElement.js';
 import Page from '../Layout/Page.js';
 import { postNewAd } from './service.js';
 
@@ -17,6 +18,7 @@ const NewAdvertPage = ({ subTitle }) => {
     tags: null,
     photo: '',
   });
+  const [error, setError] = useState(false);
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'name') {
@@ -62,11 +64,13 @@ const NewAdvertPage = ({ subTitle }) => {
       //      const to = location.state?.from?.pathname || '/';
       //      navigate(to, { replace: true });
     } catch (error) {
-      console.log(error);
+      setError(error);
       //      setError(error);
     }
     //    setIsFetching(false);
   };
+
+  const resetError = () => setError(false);
 
   return (
     <Page subTitle={subTitle}>
@@ -111,6 +115,11 @@ const NewAdvertPage = ({ subTitle }) => {
         />
         <button type='submit'>Lanzar</button>
       </form>
+      <ErrorElement
+        error={error}
+        altMessage='Be sure of your data!!'
+        handleErrorMessageClick={resetError}
+      />
     </Page>
   );
 };

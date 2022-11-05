@@ -31,6 +31,7 @@ const AdvertPage = ({ subTitle }) => {
             <p>Price: {advertisement.price}</p>
             <p>{advertisement.sale ? 'Sell' : 'Buy'}</p>
             <p>Photo: {advertisement.photo}</p>
+            <img src={advertisement.photo} />
           </Fragment>
         ) : (
           <Fragment>

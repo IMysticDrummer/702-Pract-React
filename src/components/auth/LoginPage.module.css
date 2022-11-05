@@ -1,4 +1,4 @@
-.LoginPage{
+.LoginPage {
   background-color: lightblue;
   color: darkblue;
   position: relative;
@@ -10,7 +10,7 @@
   width: 46%;
 }
 
-h1{
+h1 {
   width: 100%;
 }
 form {
@@ -20,11 +20,6 @@ form {
   width: 100%;
   margin-bottom: 10px;
 }
-button{
+button {
   clear: left;
-}
-
-.errorMessageClass{
-  background-color: lightpink;
-  color: darkred;
 }

@@ -12,6 +12,11 @@ export const getAdById = (id) => {
   return client.get(url);
 };
 
+/**
+ *
+ * @param {FormData} advertisement
+ * @returns Object
+ */
 export const postNewAd = (advertisement) => {
   const url = advertisementsUrl;
 

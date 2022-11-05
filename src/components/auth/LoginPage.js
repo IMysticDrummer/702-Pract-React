@@ -5,6 +5,7 @@ import styles from './LoginPage.module.css';
 import { login } from './service';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from './context';
+import ErrorElement from '../common/ErrorElement';
 
 const LoginPage = ({ isSignUp, className }) => {
   const [username, setUsername] = useState([]);
@@ -130,15 +131,11 @@ const LoginPage = ({ isSignUp, className }) => {
           {isSignUp ? 'Sign Up' : 'Login In'}
         </button>
       </form>
-      {error && (
-        <div
-          className={styles.errorMessageClass}
-          onClick={handleErrorMessageClick}
-        >
-          {error.message}
-          {-error.status || 'Test your cable'}
-        </div>
-      )}
+      <ErrorElement
+        error={error}
+        altMessage='Test your cable'
+        handleErrorMessageClick={handleErrorMessageClick}
+      />
     </section>
   );
 };
