@@ -1,34 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import storage from "./utils/storage";
-import {
-  removeAuthorizationHeader,
-  setAuthorizationHeader,
-} from "./api/client";
-import { BrowserRouter as Router } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { LoginContextProvider } from './components/auth/context';
+import { checkLogged, handleLogout } from './components/auth/service';
 
 //Test if it's initially logged
-const accessToken = storage.get("token");
-setAuthorizationHeader(accessToken);
+const accessToken = checkLogged();
 
-/**
- * Removes the authorisation
- */
-const handleLogout = () => {
-  removeAuthorizationHeader();
-  storage.remove("token");
-};
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
-      <App
+      <LoginContextProvider
         isInitiallyLogged={!!accessToken}
         onLogout={handleLogout}
-      />
+      >
+        <App />
+      </LoginContextProvider>
     </Router>
   </React.StrictMode>
 );

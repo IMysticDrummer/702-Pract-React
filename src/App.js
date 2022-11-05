@@ -1,88 +1,78 @@
 import AdvertsPage from './components/AdvertsPage/AdvertsPage';
 import LoginPage from './components/auth/LoginPage';
 import NewAdvertPage from './components/AdvertsPage/NewAdvertPage.js';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import Layout from './components/Layout/Layout';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AdvertPage from './components/AdvertsPage/AdvertPage';
 import RequireAuth from './components/auth/RequireAuth';
 import Page from './components/Layout/Page';
-import { LoginContextProvider } from './components/auth/context';
 
-function App({ isInitiallyLogged, onLogout }) {
-  const [isLogged, setIsLogged] = useState(isInitiallyLogged);
-
-  const setLoginTrue = () => setIsLogged(true);
-  const setLogout = () => {
-    onLogout();
-    setIsLogged(false);
-  };
+function App() {
   const title = 'NODEPOP. Your second-hand sell/buy web';
 
   return (
     <div className='app'>
-      <LoginContextProvider value={{ isLogged, setLoginTrue, setLogout }}>
-        <Routes>
+      <Routes>
+        <Route
+          path='/login'
+          element={
+            <Fragment>
+              <Layout title={title} />
+              <Page subTitle='Sign up / Sign in for a full experience!!'>
+                <LoginPage />
+                <LoginPage isSignUp='true' />
+              </Page>
+            </Fragment>
+          }
+        />
+
+        <Route
+          path='/'
+          element={<Navigate to='/adverts' />}
+        />
+
+        <Route
+          path='/adverts'
+          element={<Layout title={title} />}
+        >
           <Route
-            path='/login'
+            index
             element={
-              <Fragment>
-                <Layout title={title} />
-                <Page subTitle='Sign up / Sign in for a full experience!!'>
-                  <LoginPage />
-                  <LoginPage isSignUp='true' />
-                </Page>
-              </Fragment>
+              <RequireAuth>
+                <AdvertsPage subTitle='Wellcome to your commerce world!' />
+              </RequireAuth>
             }
           />
 
           <Route
-            path='/'
-            element={<Navigate to='/adverts' />}
+            path=':id'
+            element={
+              <RequireAuth>
+                <AdvertPage subTitle='Wellcome to your commerce world!' />
+              </RequireAuth>
+            }
           />
 
           <Route
-            path='/adverts'
-            element={<Layout title={title} />}
-          >
-            <Route
-              index
-              element={
-                <RequireAuth>
-                  <AdvertsPage subTitle='Wellcome to your commerce world!' />
-                </RequireAuth>
-              }
-            />
-
-            <Route
-              path=':id'
-              element={
-                <RequireAuth>
-                  <AdvertPage subTitle='Wellcome to your commerce world!' />
-                </RequireAuth>
-              }
-            />
-
-            <Route
-              path='new'
-              element={
-                <RequireAuth>
-                  <NewAdvertPage subTitle='What do you want to buy/sell?' />
-                </RequireAuth>
-              }
-            />
-          </Route>
-
-          <Route
-            path='/404'
-            element={<div>404 | Not Found</div>}
+            path='new'
+            element={
+              <RequireAuth>
+                <NewAdvertPage subTitle='What do you want to buy/sell?' />
+              </RequireAuth>
+            }
           />
-          <Route
-            path='*'
-            element={<Navigate to='/404' />}
-          />
-        </Routes>
-      </LoginContextProvider>
+        </Route>
+
+        <Route
+          path='/404'
+          element={<div>404 | Not Found</div>}
+        />
+        <Route
+          path='*'
+          element={<Navigate to='/404' />}
+        />
+      </Routes>
     </div>
   );
 }

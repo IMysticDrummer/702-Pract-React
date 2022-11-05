@@ -1,15 +1,38 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const LoginContext = createContext();
 
-export const LoginContextProvider = LoginContext.Provider;
+/**
+ * Custom hook to manage the user authorisation
+ * @param {boolean, function, children} param0 isInitiallyLogged to indicate the starting state; onLogut to describe the handle function to run when logout; children props
+ * @returns LoginContex.Provider with children
+ */
+export const LoginContextProvider = ({
+  isInitiallyLogged,
+  onLogout,
+  children,
+}) => {
+  const [isLogged, setIsLogged] = useState(isInitiallyLogged);
+
+  const setLoginTrue = () => setIsLogged(true);
+  const setLogout = () => {
+    onLogout();
+    setIsLogged(false);
+  };
+
+  return (
+    <LoginContext.Provider value={{ isLogged, setLoginTrue, setLogout }}>
+      {children}
+    </LoginContext.Provider>
+  );
+};
 
 export const LoginContextConsumer = LoginContext.Consumer;
 
 LoginContext.displayName = 'Logged';
 
 /**
- * Custom
+ * Custom hook that returns the LoginContext
  */
 export const useLogin = () => {
   const value = useContext(LoginContext);
