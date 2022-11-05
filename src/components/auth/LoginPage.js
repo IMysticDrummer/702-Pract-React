@@ -117,7 +117,7 @@ const LoginPage = ({ isSignUp, className }) => {
         )}
         {!isSignUp && (
           <EnterElement
-            labelText='Remember me'
+            labelText='Photo'
             type='file'
             name='file'
             onChange={enterElementHandleChange}

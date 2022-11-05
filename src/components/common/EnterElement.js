@@ -1,4 +1,3 @@
-'use strict';
 import styles from './EnterElement.module.css';
 import classNames from 'classnames';
 
@@ -8,10 +7,22 @@ import classNames from 'classnames';
  * @returns React.Component
  */
 const EnterElement = ({ labelText, className, value, ...props }) => {
+  const element = () => {
+    if (props.type !== 'file') {
+      return (
+        <input
+          value={value || ''}
+          {...props}
+        />
+      );
+    } else {
+      return <input {...props} />;
+    }
+  };
   return (
     <div className={classNames(styles.enterElementClass, className)}>
       <label htmlFor='inputElement'>{labelText}</label>
-      <input value={value || ''} {...props} />
+      {element()}
     </div>
   );
 };
