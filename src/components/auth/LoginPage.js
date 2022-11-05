@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import EnterElement from '../common/EnterElement';
 import classNames from 'classnames';
 import styles from './LoginPage.module.css';
 import { login } from './service';
 import { useLocation, useNavigate } from 'react-router-dom';
-import LoginContext from './context';
+import { useLogin } from './context';
 
 const LoginPage = ({ isSignUp, className }) => {
   const [username, setUsername] = useState([]);
@@ -16,7 +16,7 @@ const LoginPage = ({ isSignUp, className }) => {
   const [isFetching, setIsFetching] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { setLoginTrue: onLogin } = useContext(LoginContext);
+  const { setLoginTrue: onLogin } = useLogin();
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'username') {

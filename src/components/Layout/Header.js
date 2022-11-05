@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import LoginContext from '../auth/context';
+import { useLogin } from '../auth/context';
 import './Header.css';
 
 const Header = ({ title }) => {
-  const { isLogged, setLogout: onLogout } = useContext(LoginContext);
+  const { isLogged, setLogout: onLogout } = useLogin();
   return (
     <header>
       <h1>{title || 'NODEPOP. Your second-hand sell/buy web'}</h1>
