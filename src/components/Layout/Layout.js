@@ -7,11 +7,7 @@ import { Outlet } from 'react-router-dom';
 const Layout = ({ title, children, className, ...props }) => {
   return (
     <main className={classNames(styles.layoutMainClass, className)}>
-      <Header
-        title={title}
-        isLogged={props.isLogged}
-        onLogout={props.onLogout}
-      ></Header>
+      <Header title={title}></Header>
       <main>
         <Outlet />
       </main>

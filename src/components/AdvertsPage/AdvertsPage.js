@@ -1,8 +1,7 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAdvertisements } from './service';
 import classNames from 'classnames';
 import styles from './AdvertsPage.module.css';
-import Layout from '../Layout/Layout.js';
 import { Link } from 'react-router-dom';
 import Page from '../Layout/Page';
 
@@ -11,10 +10,10 @@ import Page from '../Layout/Page';
  * Recives the title and subTitle of the page.
  * Recives if the user is logged.
  * Recives a function to manage the onLogout event
- * @param {title:string, subTitle:string, isLogged:boolean, onLogout:function, className:string} param0 
+ * @param {title:string, subTitle:string, isLogged:boolean, onLogout:function, className:string} param0
  * @returns React.Component
  */
-const AdvertsPage = ({title, subTitle, isLogged, onLogout, className}) => {
+const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
   const [advertisements, setAdvertisements] = useState([]);
 
   useEffect(() => {
@@ -34,12 +33,7 @@ const AdvertsPage = ({title, subTitle, isLogged, onLogout, className}) => {
     [styles.empty]: !advertisements.length,
   });
   return (
-    <Page
-      title={title}
-      subTitle={subTitle}
-      isLogged={isLogged}
-      onLogout={onLogout}
-    >
+    <Page subTitle={subTitle}>
       <section className={sectionClassName}>
         <ul>
           {advertisements.length ? (

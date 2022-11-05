@@ -1,9 +1,17 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { useContext } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import LoginContext from './context';
 
-const RequireAuth = ({ isLogged, children }) => {
-  const location=useLocation();
+const RequireAuth = ({ children }) => {
+  const { isLogged } = useContext(LoginContext);
+  const location = useLocation();
   if (!isLogged) {
-    return <Navigate to='/login' state={{from: location}}/>;
+    return (
+      <Navigate
+        to='/login'
+        state={{ from: location }}
+      />
+    );
   }
   return children;
 };
