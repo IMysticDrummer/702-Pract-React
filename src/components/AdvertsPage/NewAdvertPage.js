@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import EnterElement from '../common/EnterElement.js';
 import ErrorElement from '../common/ErrorElement.js';
 import Page from '../Layout/Page.js';
@@ -16,9 +17,11 @@ const NewAdvertPage = ({ subTitle }) => {
     sale: true,
     price: 0,
     tags: null,
-    photo: '',
+    photo: null,
   });
   const [error, setError] = useState(false);
+  const [IsFetching, setIsFetching] = useState(false);
+  const navigate = useNavigate();
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'name') {
@@ -52,22 +55,18 @@ const NewAdvertPage = ({ subTitle }) => {
     formData.append('sale', form.sale);
     formData.append('price', form.price);
     formData.append('tags', form.tags);
-    formData.append('photo', form.photo);
+    if (form.photo) formData.append('photo', form.photo);
 
     try {
-      //      setError(null);
-      //      setIsFetching(true);
-      //const response = await postNewAd({ name, sale, price, tags, photo });
+      setError(null);
+      setIsFetching(true);
       const response = await postNewAd(formData);
-      console.log(`response= ${response.id}`);
-      //      onLogin();
-      //      const to = location.state?.from?.pathname || '/';
-      //      navigate(to, { replace: true });
+      const to = `/adverts/${response.id}`;
+      navigate(to, { replace: true });
     } catch (error) {
       setError(error);
-      //      setError(error);
     }
-    //    setIsFetching(false);
+    setIsFetching(false);
   };
 
   const resetError = () => setError(false);
@@ -113,7 +112,12 @@ const NewAdvertPage = ({ subTitle }) => {
           name='photo'
           onChange={enterElementHandleChange}
         />
-        <button type='submit'>Lanzar</button>
+        <button
+          type='submit'
+          disabled={IsFetching}
+        >
+          Lanzar
+        </button>
       </form>
       <ErrorElement
         error={error}

@@ -116,14 +116,6 @@ const LoginPage = ({ isSignUp, className }) => {
             checked={remember}
           />
         )}
-        {!isSignUp && (
-          <EnterElement
-            labelText='Photo'
-            type='file'
-            name='file'
-            onChange={enterElementHandleChange}
-          />
-        )}
         <button
           type='submit'
           disabled={disableButton()}

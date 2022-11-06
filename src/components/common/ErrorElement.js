@@ -3,13 +3,15 @@ import styles from './ErrorElement.module.css';
 const ErrorElement = ({ error, altMessage, handleErrorMessageClick }) => {
   if (error) {
     return (
-      <div
+      <section
         className={styles.errorMessageClass}
         onClick={handleErrorMessageClick}
       >
         {error.message}
         {-error.status || altMessage}
-      </div>
+        <p></p>
+        <p>Click in this message to continue</p>
+      </section>
     );
   }
 };

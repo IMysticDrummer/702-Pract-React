@@ -22,3 +22,9 @@ export const postNewAd = (advertisement) => {
 
   return client.post(url, advertisement);
 };
+
+export const eraseAd = (id) => {
+  const url = advertisementsUrl;
+
+  return client.delete(`${url}/${id}`);
+};
