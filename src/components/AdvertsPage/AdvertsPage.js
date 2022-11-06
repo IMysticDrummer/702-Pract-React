@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import styles from './AdvertsPage.module.css';
 import { Link } from 'react-router-dom';
 import Page from '../Layout/Page';
+import FiltersAdsElement from './FiltersAdsElement';
 
 /**
  * Advertisement component.
@@ -15,6 +16,14 @@ import Page from '../Layout/Page';
  */
 const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
   const [advertisements, setAdvertisements] = useState([]);
+  const [filteredAds, setFilteredAds] = useState([]);
+  const [filters, setFilters] = useState({ tags: [] });
+
+  const options = ['lifestyle', 'work', 'mobile', 'motor'];
+
+  const handleFilters = (filtersSelected) => {
+    setFilters(filtersSelected);
+  };
 
   useEffect(() => {
     const getAds = async () => {
@@ -22,35 +31,60 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
       try {
         adsList = await getAdvertisements();
         setAdvertisements(adsList);
+        filteringAds();
       } catch (error) {
-        console.log('');
+        console.log('fallo AdvertsPage useEffect');
       }
     };
+
+    const filteringAds = async () => {
+      let filteredAdsList;
+      try {
+        filteredAdsList = await advertisements.filter(filterTags);
+      } catch (error) {
+        console.log(error);
+      }
+
+      setFilteredAds(filteredAdsList);
+    };
+
+    const filterTags = (ad) => {
+      if (filters.tags.length > 0 || filters.name.length > 0) {
+        const name = filters.name;
+        if (name) {
+          if (ad.name.toLowerCase().includes(name.toLowerCase())) return true;
+        }
+        return false;
+      }
+      return true;
+    };
+
     getAds();
-  }, []);
+  }, [advertisements, filters, filteredAds]);
 
   const sectionClassName = classNames(styles.AdvertsPage, className, {
     [styles.empty]: !advertisements.length,
   });
+
   return (
     <Page subTitle={subTitle}>
+      <FiltersAdsElement
+        selectOptions={options}
+        filters={filters}
+        onFiltering={handleFilters}
+      />
       <section className={sectionClassName}>
         <ul>
-          {advertisements.length ? (
-            advertisements.map((ad) => (
-              <li key={ad.id}>
-                <Link to={`/adverts/${ad.id}`}>
-                  {ad.name}, {ad.sale ? 'Vendo' : 'Compro'}, {ad.price},
-                  {ad.tags.map((tag) => (
-                    <p
-                      key={tag}
-                      className='tagParagraph'
-                    >
-                      {tag}
-                    </p>
-                  ))}
-                </Link>
-              </li>
+          {filteredAds.length ? (
+            filteredAds.map((ad) => (
+              <Link
+                key={ad.id}
+                to={`/adverts/${ad.id}`}>
+                <li>
+                  {ad.name}, {ad.sale ? 'I sell' : 'I buy'}, {ad.price},
+                  {ad.tags.join(' - ')}
+                </li>
+              </Link>
             ))
           ) : (
             <button>Crea tu primer anuncio</button>

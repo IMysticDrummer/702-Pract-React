@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EnterElement from '../common/EnterElement.js';
 import ErrorElement from '../common/ErrorElement.js';
-import SelectElement from '../common/SelectElement.js';
+import SelectElement, { optionsSelectLogic } from '../common/SelectElement.js';
 import Page from '../Layout/Page.js';
 import { postNewAd } from './service.js';
 
@@ -19,9 +19,6 @@ const NewAdvertPage = ({ subTitle }) => {
   const navigate = useNavigate();
 
   const disableButton = () => {
-    console.log(
-      `nombre: ${form.name}; precio: ${form.price}, tags: ${form.tags}`
-    );
     return !(
       form.name.length !== 0 &&
       form.price > 0 &&
@@ -41,13 +38,7 @@ const NewAdvertPage = ({ subTitle }) => {
       setForm({ ...form, [event.target.name]: event.target.value });
     }
     if (event.target.name === 'tags') {
-      const tags = form.tags;
-      if (!tags.includes(event.target.value)) {
-        tags.push(event.target.value);
-      } else {
-        tags.splice(tags.indexOf(event.target.value), 1);
-      }
-
+      const tags = optionsSelectLogic(form.tags, event.target.value);
       setForm({ ...form, [event.target.name]: tags });
     }
     if (event.target.name === 'photo') {
