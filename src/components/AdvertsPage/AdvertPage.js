@@ -6,7 +6,7 @@ import Page from '../Layout/Page.js';
 import { eraseAd, getAdById } from './service.js';
 
 const AdvertPage = ({ subTitle }) => {
-  const [advertisement, setAdvertisement] = useState({});
+  const [advertisement, setAdvertisement] = useState({ tags: [] });
   const [error, setError] = useState(null);
   const [erase, setErase] = useState(false);
   const { id } = useParams();
@@ -35,7 +35,6 @@ const AdvertPage = ({ subTitle }) => {
 
   const eraseAdResponse = async (eraseResponse) => {
     if (eraseResponse) {
-      //enviar a borrar el anuncio
       try {
         await eraseAd(id);
         navigate('/');
@@ -70,7 +69,11 @@ const AdvertPage = ({ subTitle }) => {
           <p>Product: {advertisement.name}</p>
           <p>Price: {advertisement.price}</p>
           <p>{advertisement.sale ? 'Sell' : 'Buy'}</p>
-          <p>Photo: {advertisement.photo}</p>
+          <p>
+            Tags:
+            {<Fragment> {advertisement.tags.join(' - ')}</Fragment>}
+          </p>
+          <p>Photo: </p>
           {!advertisement.photo ? (
             <label>NO PHOTO AVIABLE</label>
           ) : (
@@ -81,8 +84,7 @@ const AdvertPage = ({ subTitle }) => {
           )}
           <button
             name='eraseAd'
-            onClick={handleEraseAdClick}
-          >
+            onClick={handleEraseAdClick}>
             Erase Advertisement
           </button>
         </Fragment>
