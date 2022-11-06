@@ -3,10 +3,25 @@ import classNames from 'classnames';
 
 /**
  * Component to show an enter+label field
+ * This component is not working with radio, select and button types
  * @param {labelText} param0 labelText contains the message for the field label. It is possible to pass all permitted html attributes to configure the input field
  * @returns React.Component
  */
 const EnterElement = ({ labelText, className, value, ...props }) => {
+  if (
+    props.type === 'button' ||
+    props.type === 'radio' ||
+    props.type === 'select'
+  ) {
+    return (
+      <div>
+        <p>
+          ERROR!! This {props.type} input is not supported by this component
+        </p>
+      </div>
+    );
+  }
+
   const element = () => {
     if (props.type !== 'file') {
       return (

@@ -2,47 +2,55 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EnterElement from '../common/EnterElement.js';
 import ErrorElement from '../common/ErrorElement.js';
+import SelectElement from '../common/SelectElement.js';
 import Page from '../Layout/Page.js';
 import { postNewAd } from './service.js';
 
 const NewAdvertPage = ({ subTitle }) => {
-  // const [name, setName] = useState('');
-  // const [sale, setSale] = useState(true);
-  // const [price, setPrice] = useState('0');
-  // const [tags, setTags] = useState([]);
-  // const [photo, setPhoto] = useState('');
-
   const [form, setForm] = useState({
-    name: null,
+    name: '',
     sale: true,
     price: 0,
-    tags: null,
+    tags: [],
     photo: null,
   });
   const [error, setError] = useState(false);
-  const [IsFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
+
+  const disableButton = () => {
+    console.log(
+      `nombre: ${form.name}; precio: ${form.price}, tags: ${form.tags}`
+    );
+    return !(
+      form.name.length !== 0 &&
+      form.price > 0 &&
+      form.tags.length > 0 &&
+      !isFetching
+    );
+  };
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'name') {
-      //setName(event.target.value);
       setForm({ ...form, [event.target.name]: event.target.value });
     }
     if (event.target.name === 'sale') {
-      //setSale(event.target.checked);
       setForm({ ...form, [event.target.name]: event.target.checked });
     }
     if (event.target.name === 'price') {
-      //setPrice(event.target.value);
       setForm({ ...form, [event.target.name]: event.target.value });
     }
     if (event.target.name === 'tags') {
-      //setTags(event.target.value);
-      setForm({ ...form, [event.target.name]: event.target.value });
+      const tags = form.tags;
+      if (!tags.includes(event.target.value)) {
+        tags.push(event.target.value);
+      } else {
+        tags.splice(tags.indexOf(event.target.value), 1);
+      }
+
+      setForm({ ...form, [event.target.name]: tags });
     }
     if (event.target.name === 'photo') {
-      //console.log(event.target);
-      //setPhoto(event.target.files[0]);
       setForm({ ...form, [event.target.name]: event.target.files[0] });
     }
   };
@@ -76,8 +84,7 @@ const NewAdvertPage = ({ subTitle }) => {
       <span>Esto es new advert page</span>
       <form
         id='newAdForm'
-        onSubmit={handleSubmit}
-      >
+        onSubmit={handleSubmit}>
         <EnterElement
           labelText='Name'
           type='input'
@@ -99,13 +106,15 @@ const NewAdvertPage = ({ subTitle }) => {
           onChange={enterElementHandleChange}
           value={form.price}
         />
-        <EnterElement
-          labelText='Tags'
-          type='input'
+        <SelectElement
+          label='Tags'
           name='tags'
-          onChange={enterElementHandleChange}
           value={form.tags}
+          options={['lifestyle', 'mobile', 'work', 'motor']}
+          multiple
+          onChange={enterElementHandleChange}
         />
+
         <EnterElement
           labelText='Photo'
           type='file'
@@ -114,9 +123,8 @@ const NewAdvertPage = ({ subTitle }) => {
         />
         <button
           type='submit'
-          disabled={IsFetching}
-        >
-          Lanzar
+          disabled={disableButton()}>
+          Crear
         </button>
       </form>
       <ErrorElement
