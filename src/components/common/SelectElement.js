@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
 export const optionsSelectLogic = (tags, value) => {
-  const newTags = tags;
+  const newTags = [...tags];
   if (!newTags.includes(value)) {
     newTags.push(value);
   } else {

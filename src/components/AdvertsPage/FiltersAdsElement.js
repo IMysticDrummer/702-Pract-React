@@ -16,6 +16,7 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
   //const [filters, setFilters] = useState({});
 
   const enterElementHandleChange = (event) => {
+    debugger;
     if (event.target.name === 'name') {
       onFiltering({ ...filters, [event.target.name]: event.target.value });
     }
@@ -27,6 +28,7 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
     // }
     if (event.target.name === 'tags') {
       const newTags = optionsSelectLogic(filters.tags, event.target.value);
+
       onFiltering({ ...filters, [event.target.name]: newTags });
     }
   };
@@ -43,10 +45,10 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
       <SelectElement
         label='Tags filter'
         name={'tags'}
+        value={filters.tags}
         multiple
         options={selectOptions}
         onChange={enterElementHandleChange}
-        value={filters.tags}
       />
     </section>
   );
