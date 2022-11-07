@@ -5,6 +5,7 @@ import styles from './AdvertsPage.module.css';
 import { Link } from 'react-router-dom';
 import Page from '../Layout/Page';
 import FiltersAdsElement from './FiltersAdsElement';
+import { useOptions } from './optionsContex';
 
 /**
  * Advertisement component.
@@ -18,7 +19,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
   const [advertisements, setAdvertisements] = useState([]);
   const [filters, setFilters] = useState({ tags: [] });
 
-  const options = ['lifestyle', 'work', 'mobile', 'motor'];
+  const { tagOptions } = useOptions();
 
   const handleFilters = (filtersSelected) => {
     setFilters(filtersSelected);
@@ -69,7 +70,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
   return (
     <Page subTitle={subTitle}>
       <FiltersAdsElement
-        selectOptions={options}
+        selectOptions={tagOptions}
         filters={filters}
         onFiltering={handleFilters}
       />

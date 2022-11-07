@@ -28,3 +28,9 @@ export const eraseAd = (id) => {
 
   return client.delete(`${url}/${id}`);
 };
+
+export const getTags = () => {
+  const url = `${advertisementsUrl}/tags`;
+
+  return client.get(url);
+};

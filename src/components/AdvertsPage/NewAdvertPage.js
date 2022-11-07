@@ -4,6 +4,7 @@ import EnterElement from '../common/EnterElement.js';
 import ErrorElement from '../common/ErrorElement.js';
 import SelectElement from '../common/SelectElement.js';
 import Page from '../Layout/Page.js';
+import { useOptions } from './optionsContex.js';
 import { postNewAd } from './service.js';
 
 const NewAdvertPage = ({ subTitle }) => {
@@ -17,6 +18,7 @@ const NewAdvertPage = ({ subTitle }) => {
   const [error, setError] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
+  const { tagOptions } = useOptions();
 
   const disableButton = () => {
     return !(
@@ -102,7 +104,7 @@ const NewAdvertPage = ({ subTitle }) => {
           label='Tags'
           name='tags'
           value={form.tags}
-          options={['lifestyle', 'mobile', 'work', 'motor']}
+          options={tagOptions}
           multiple
           onChange={enterElementHandleChange}
         />

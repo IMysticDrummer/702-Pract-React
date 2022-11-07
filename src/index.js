@@ -5,6 +5,7 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { LoginContextProvider } from './components/auth/context';
 import { checkLogged, handleLogout } from './components/auth/service';
+import { OptionsContexProvider } from './components/AdvertsPage/optionsContex';
 
 //Test if it's initially logged
 const accessToken = checkLogged();
@@ -15,9 +16,10 @@ root.render(
     <Router>
       <LoginContextProvider
         isInitiallyLogged={!!accessToken}
-        onLogout={handleLogout}
-      >
-        <App />
+        onLogout={handleLogout}>
+        <OptionsContexProvider>
+          <App />
+        </OptionsContexProvider>
       </LoginContextProvider>
     </Router>
   </React.StrictMode>
