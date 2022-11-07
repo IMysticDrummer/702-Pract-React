@@ -16,7 +16,6 @@ import FiltersAdsElement from './FiltersAdsElement';
  */
 const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
   const [advertisements, setAdvertisements] = useState([]);
-  const [filteredAds, setFilteredAds] = useState([]);
   const [filters, setFilters] = useState({ tags: [] });
 
   const options = ['lifestyle', 'work', 'mobile', 'motor'];
@@ -31,54 +30,41 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
       try {
         adsList = await getAdvertisements();
         setAdvertisements(adsList);
-        filteringAds();
       } catch (error) {
         console.log('fallo AdvertsPage useEffect');
       }
     };
-
-    const filteringAds = async () => {
-      let filteredAdsList;
-      try {
-        filteredAdsList = await advertisements
-          .filter(filterName)
-          .filter(filterTags);
-      } catch (error) {
-        console.log(error);
-      }
-
-      setFilteredAds(filteredAdsList);
-    };
-
-    const filterName = (ad) => {
-      if (filters.name?.length > 0) {
-        const name = filters.name;
-        if (name) {
-          if (ad.name.toLowerCase().includes(name.toLowerCase())) return true;
-        }
-        return false;
-      }
-      return true;
-    };
-
-    const filterTags = (ad) => {
-      if (filters.tags?.length > 0) {
-        const tags = filters.tags;
-        tags.map((tag) => {
-          if (!ad.tags.includes(tag.toLowerCase())) return true;
-          return false;
-        });
-        if (tags.includes(false)) return false;
-      }
-      return true;
-    };
-
     getAds();
-  }, [advertisements, filters, filteredAds]);
+  }, []);
 
   const sectionClassName = classNames(styles.AdvertsPage, className, {
     [styles.empty]: !advertisements.length,
   });
+
+  const filterName = (ad) => {
+    if (filters.name?.length > 0) {
+      const name = filters.name;
+      if (name) {
+        if (ad.name.toLowerCase().includes(name.toLowerCase())) return true;
+      }
+      return false;
+    }
+    return true;
+  };
+
+  const filterTags = (ad) => {
+    if (filters.tags?.length > 0) {
+      for (let index = 0; index < filters.tags.length; index++) {
+        if (!ad.tags.includes(filters.tags[index].toLowerCase())) return false;
+      }
+    }
+    return true;
+  };
+
+  const filterAds = () => {
+    return advertisements.filter(filterName).filter(filterTags);
+  };
+  const filteredAds = filterAds(advertisements);
 
   return (
     <Page subTitle={subTitle}>

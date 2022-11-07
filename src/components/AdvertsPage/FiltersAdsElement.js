@@ -1,5 +1,5 @@
 import EnterElement from '../common/EnterElement';
-import SelectElement, { optionsSelectLogic } from '../common/SelectElement';
+import SelectElement from '../common/SelectElement';
 
 /**
  * Component to filtering ads.
@@ -13,10 +13,7 @@ import SelectElement, { optionsSelectLogic } from '../common/SelectElement';
  * @returns {React.Component} containing the advertisement filters
  */
 const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
-  //const [filters, setFilters] = useState({});
-
   const enterElementHandleChange = (event) => {
-    debugger;
     if (event.target.name === 'name') {
       onFiltering({ ...filters, [event.target.name]: event.target.value });
     }
@@ -27,7 +24,8 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
     //   setForm({ ...form, [event.target.name]: event.target.value });
     // }
     if (event.target.name === 'tags') {
-      const newTags = optionsSelectLogic(filters.tags, event.target.value);
+      const { selectedOptions } = event.target;
+      const newTags = [...selectedOptions].map((value) => value.value);
 
       onFiltering({ ...filters, [event.target.name]: newTags });
     }
@@ -45,7 +43,6 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
       <SelectElement
         label='Tags filter'
         name={'tags'}
-        value={filters.tags}
         multiple
         options={selectOptions}
         onChange={enterElementHandleChange}

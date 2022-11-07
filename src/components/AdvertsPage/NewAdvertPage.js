@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EnterElement from '../common/EnterElement.js';
 import ErrorElement from '../common/ErrorElement.js';
-import SelectElement, { optionsSelectLogic } from '../common/SelectElement.js';
+import SelectElement from '../common/SelectElement.js';
 import Page from '../Layout/Page.js';
 import { postNewAd } from './service.js';
 
@@ -38,7 +38,8 @@ const NewAdvertPage = ({ subTitle }) => {
       setForm({ ...form, [event.target.name]: event.target.value });
     }
     if (event.target.name === 'tags') {
-      const tags = optionsSelectLogic(form.tags, event.target.value);
+      const { selectedOptions } = event.target;
+      const tags = [...selectedOptions].map((value) => value.value);
       setForm({ ...form, [event.target.name]: tags });
     }
     if (event.target.name === 'photo') {

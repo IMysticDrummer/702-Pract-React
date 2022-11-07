@@ -1,15 +1,5 @@
 import { Fragment } from 'react';
 
-export const optionsSelectLogic = (tags, value) => {
-  const newTags = [...tags];
-  if (!newTags.includes(value)) {
-    newTags.push(value);
-  } else {
-    newTags.splice(newTags.indexOf(value), 1);
-  }
-  return newTags;
-};
-
 const SelectElement = ({
   label,
   name,
