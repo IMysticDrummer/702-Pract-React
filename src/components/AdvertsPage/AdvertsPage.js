@@ -40,7 +40,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     const filteringAds = async () => {
       let filteredAdsList;
       try {
-        filteredAdsList = await advertisements.filter(filterTags);
+        filteredAdsList = await advertisements.filter(filterName);
       } catch (error) {
         console.log(error);
       }
@@ -48,8 +48,8 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
       setFilteredAds(filteredAdsList);
     };
 
-    const filterTags = (ad) => {
-      if (filters.tags.length > 0 || filters.name.length > 0) {
+    const filterName = (ad) => {
+      if (filters.name?.length > 0) {
         const name = filters.name;
         if (name) {
           if (ad.name.toLowerCase().includes(name.toLowerCase())) return true;
