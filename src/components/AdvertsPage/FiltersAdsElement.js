@@ -1,5 +1,6 @@
 import EnterElement from '../common/EnterElement';
 import SelectElement from '../common/SelectElement';
+import RadioEnter from './RadioEnter';
 
 /**
  * Component to filtering ads.
@@ -17,9 +18,11 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
     if (event.target.name === 'name') {
       onFiltering({ ...filters, [event.target.name]: event.target.value });
     }
-    // if (event.target.name === 'sale') {
-    //   setForm({ ...form, [event.target.name]: event.target.checked });
-    // }
+    if (event.target.name === 'sellFilter') {
+      console.log(event.target.value);
+      console.log(event.target.name);
+      onFiltering({ ...filters, [event.target.name]: event.target.value });
+    }
     // if (event.target.name === 'price') {
     //   setForm({ ...form, [event.target.name]: event.target.value });
     // }
@@ -46,6 +49,17 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
         multiple
         options={selectOptions}
         onChange={enterElementHandleChange}
+      />
+      <RadioEnter
+        label='Sell/Buy Filter'
+        name='sellFilter'
+        values={[
+          { id: 'all', value: '', label: 'All' },
+          { id: 'sell', value: 'sell', label: 'Sell' },
+          { id: 'buy', value: 'buy', label: 'Buy' },
+        ]}
+        onChange={enterElementHandleChange}
+        value={filters.sellFilter}
       />
     </section>
   );

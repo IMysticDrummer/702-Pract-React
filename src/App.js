@@ -7,7 +7,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import AdvertPage from './components/AdvertsPage/AdvertPage';
 import RequireAuth from './components/auth/RequireAuth';
 import Page from './components/Layout/Page';
-import { OptionsContexProvider } from './components/AdvertsPage/optionsContex';
 
 function App() {
   const title = 'NODEPOP. Your second-hand sell/buy web';
@@ -35,7 +34,8 @@ function App() {
 
         <Route
           path='/adverts'
-          element={<Layout title={title} />}>
+          element={<Layout title={title} />}
+        >
           <Route
             index
             element={

@@ -17,7 +17,7 @@ import { useOptions } from './optionsContex';
  */
 const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
   const [advertisements, setAdvertisements] = useState([]);
-  const [filters, setFilters] = useState({ tags: [] });
+  const [filters, setFilters] = useState({ sellFilter: '', tags: [] });
 
   const { tagOptions } = useOptions();
 
@@ -62,8 +62,22 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     return true;
   };
 
+  const filterSell = (ad) => {
+    if (filters.sellFilter !== '') {
+      if (filters.sellFilter === 'sell') {
+        return ad.sale;
+      }
+      return !ad.sale;
+    }
+
+    return true;
+  };
+
   const filterAds = () => {
-    return advertisements.filter(filterName).filter(filterTags);
+    return advertisements
+      .filter(filterName)
+      .filter(filterTags)
+      .filter(filterSell);
   };
   const filteredAds = filterAds(advertisements);
 
@@ -80,7 +94,8 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
             filteredAds.map((ad) => (
               <Link
                 key={ad.id}
-                to={`/adverts/${ad.id}`}>
+                to={`/adverts/${ad.id}`}
+              >
                 <li>
                   {ad.name}, {ad.sale ? 'I sell' : 'I buy'}, {ad.price},
                   {ad.tags.join(' - ')}
