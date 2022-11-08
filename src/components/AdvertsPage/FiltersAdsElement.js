@@ -13,14 +13,17 @@ import RadioEnter from './RadioEnter';
  * @param {Object} Object containing the configuration
  * @returns {React.Component} containing the advertisement filters
  */
-const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
+const FiltersAdsElement = ({
+  selectOptions,
+  filters,
+  onFiltering,
+  radioEnterValues,
+}) => {
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'name') {
       onFiltering({ ...filters, [event.target.name]: event.target.value });
     }
     if (event.target.name === 'sellFilter') {
-      console.log(event.target.value);
-      console.log(event.target.name);
       onFiltering({ ...filters, [event.target.name]: event.target.value });
     }
     // if (event.target.name === 'price') {
@@ -31,6 +34,9 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
       const newTags = [...selectedOptions].map((value) => value.value);
 
       onFiltering({ ...filters, [event.target.name]: newTags });
+    }
+    if (event.target.name === 'reset') {
+      onFiltering({ ...filters, tags: [] });
     }
   };
 
@@ -45,19 +51,17 @@ const FiltersAdsElement = ({ selectOptions, filters, onFiltering }) => {
       />
       <SelectElement
         label='Tags filter'
-        name={'tags'}
+        name='tags'
         multiple
         options={selectOptions}
         onChange={enterElementHandleChange}
+        value={filters.tags}
+        handleReset={enterElementHandleChange}
       />
       <RadioEnter
         label='Sell/Buy Filter'
         name='sellFilter'
-        values={[
-          { id: 'all', value: '', label: 'All' },
-          { id: 'sell', value: 'sell', label: 'Sell' },
-          { id: 'buy', value: 'buy', label: 'Buy' },
-        ]}
+        values={radioEnterValues}
         onChange={enterElementHandleChange}
         value={filters.sellFilter}
       />

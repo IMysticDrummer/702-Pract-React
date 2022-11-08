@@ -7,6 +7,7 @@ const SelectElement = ({
   multiple,
   options,
   onChange,
+  handleReset,
   ...props
 }) => {
   const optionsList = (options) => {
@@ -16,7 +17,8 @@ const SelectElement = ({
           return (
             <option
               key={optionElement}
-              value={optionElement}>
+              value={optionElement}
+            >
               {optionElement}
             </option>
           );
@@ -33,9 +35,16 @@ const SelectElement = ({
         id='selectElement'
         value={value}
         multiple={multiple}
-        onChange={onChange}>
+        onChange={onChange}
+      >
         {optionsList(options)}
       </select>
+      <button
+        name='reset'
+        onClick={handleReset}
+      >
+        reset
+      </button>
     </Fragment>
   );
 };

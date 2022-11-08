@@ -80,13 +80,18 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
       .filter(filterSell);
   };
   const filteredAds = filterAds(advertisements);
-
+  const radioEnterValues = [
+    { id: 'all', value: '', label: 'All' },
+    { id: 'sell', value: 'sell', label: 'Sell' },
+    { id: 'buy', value: 'buy', label: 'Buy' },
+  ];
   return (
     <Page subTitle={subTitle}>
       <FiltersAdsElement
         selectOptions={tagOptions}
         filters={filters}
         onFiltering={handleFilters}
+        radioEnterValues={radioEnterValues}
       />
       <section className={sectionClassName}>
         <ul>
