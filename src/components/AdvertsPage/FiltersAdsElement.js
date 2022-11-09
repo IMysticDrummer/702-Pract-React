@@ -1,5 +1,6 @@
 import EnterElement from '../common/EnterElement';
 import SelectElement from '../common/SelectElement';
+import Slider from '../common/Slider';
 import RadioEnter from './RadioEnter';
 
 /**
@@ -18,6 +19,8 @@ const FiltersAdsElement = ({
   filters,
   onFiltering,
   radioEnterValues,
+  sliderRange,
+  sliderChangeHandle,
 }) => {
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'name') {
@@ -64,6 +67,19 @@ const FiltersAdsElement = ({
         values={radioEnterValues}
         onChange={enterElementHandleChange}
         value={filters.sellFilter}
+      />
+
+      <Slider
+        name='slider'
+        onChange={sliderChangeHandle}
+        min={sliderRange.range[0]}
+        max={sliderRange.range[1]}
+        range={sliderRange.range}
+        marks={sliderRange.marks}
+        allowCross={false}
+        defaultValue={filters.price}
+        value={filters.price}
+        step={null}
       />
     </section>
   );

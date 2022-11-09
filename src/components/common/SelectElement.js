@@ -39,12 +39,14 @@ const SelectElement = ({
       >
         {optionsList(options)}
       </select>
-      <button
-        name='reset'
-        onClick={handleReset}
-      >
-        reset
-      </button>
+      {handleReset && (
+        <button
+          name='reset'
+          onClick={handleReset}
+        >
+          reset tags
+        </button>
+      )}
     </Fragment>
   );
 };

@@ -30,6 +30,7 @@ const NewAdvertPage = ({ subTitle }) => {
   };
 
   const enterElementHandleChange = (event) => {
+    event.preventDefault();
     if (event.target.name === 'name') {
       setForm({ ...form, [event.target.name]: event.target.value });
     }
@@ -78,7 +79,8 @@ const NewAdvertPage = ({ subTitle }) => {
       <span>Esto es new advert page</span>
       <form
         id='newAdForm'
-        onSubmit={handleSubmit}>
+        onSubmit={handleSubmit}
+      >
         <EnterElement
           labelText='Name'
           type='input'
@@ -117,7 +119,8 @@ const NewAdvertPage = ({ subTitle }) => {
         />
         <button
           type='submit'
-          disabled={disableButton()}>
+          disabled={disableButton()}
+        >
           Crear
         </button>
       </form>

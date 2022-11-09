@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getAdvertisements } from './service';
 import classNames from 'classnames';
 import styles from './AdvertsPage.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Page from '../Layout/Page';
 import FiltersAdsElement from './FiltersAdsElement';
 import { useOptions } from './optionsContex';
@@ -24,6 +24,8 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
   const handleFilters = (filtersSelected) => {
     setFilters(filtersSelected);
   };
+
+  const Navigate = useNavigate();
 
   useEffect(() => {
     const getAds = async () => {
@@ -73,26 +75,67 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     return true;
   };
 
+  const filterPrice = (ad) => {
+    if (filters.price) {
+      if (ad.price >= filters.price[0] && ad.price <= filters.price[1])
+        return true;
+      return false;
+    }
+    return true;
+  };
+
   const filterAds = () => {
     return advertisements
       .filter(filterName)
       .filter(filterTags)
-      .filter(filterSell);
+      .filter(filterSell)
+      .filter(filterPrice);
   };
   const filteredAds = filterAds(advertisements);
+
   const radioEnterValues = [
     { id: 'all', value: '', label: 'All' },
     { id: 'sell', value: 'sell', label: 'Sell' },
     { id: 'buy', value: 'buy', label: 'Buy' },
   ];
+
+  const calculateRange = (adsList) => {
+    let min, max;
+    let marks = {};
+    adsList.forEach((element) => {
+      if (!min) {
+        min = max = element.price;
+      } else {
+        element.price < min ? (min = element.price) : (min = min);
+        element.price > max ? (max = element.price) : (max = max);
+      }
+      marks = { ...marks, [element.price]: element.price };
+    });
+    return { range: [min, max], marks };
+  };
+
+  const redirectNewAd = () => {
+    Navigate('new');
+  };
+
+  const sliderChangeHandle = (event) => {
+    console.log(event);
+    setFilters({ ...filters, price: event });
+  };
+
+  const rangeOfSlider = calculateRange(advertisements);
   return (
     <Page subTitle={subTitle}>
-      <FiltersAdsElement
-        selectOptions={tagOptions}
-        filters={filters}
-        onFiltering={handleFilters}
-        radioEnterValues={radioEnterValues}
-      />
+      {advertisements.length > 0 && (
+        <FiltersAdsElement
+          selectOptions={tagOptions}
+          filters={filters}
+          onFiltering={handleFilters}
+          radioEnterValues={radioEnterValues}
+          sliderRange={rangeOfSlider}
+          sliderChangeHandle={sliderChangeHandle}
+        />
+      )}
       <section className={sectionClassName}>
         <ul>
           {filteredAds.length ? (
@@ -108,7 +151,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
               </Link>
             ))
           ) : (
-            <button>Crea tu primer anuncio</button>
+            <button onClick={redirectNewAd}>Crea tu primer anuncio</button>
           )}
         </ul>
       </section>
