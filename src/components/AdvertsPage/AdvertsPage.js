@@ -6,6 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import Page from '../Layout/Page';
 import FiltersAdsElement from './FiltersAdsElement';
 import { useOptions } from './optionsContex';
+import {
+  enterFilterConfObject,
+  selectFilterConfObject,
+  radioFilterConfObject,
+  sliderFilterConfObject,
+} from './filtersConf';
 
 /**
  * Advertisement component.
@@ -20,10 +26,6 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
   const [filters, setFilters] = useState({ sellFilter: '', tags: [] });
 
   const { tagOptions } = useOptions();
-
-  const handleFilters = (filtersSelected) => {
-    setFilters(filtersSelected);
-  };
 
   const Navigate = useNavigate();
 
@@ -44,7 +46,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     [styles.empty]: !advertisements.length,
   });
 
-  const filterName = (ad) => {
+  const filterNameFunction = (ad) => {
     if (filters.name?.length > 0) {
       const name = filters.name;
       if (name) {
@@ -55,7 +57,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     return true;
   };
 
-  const filterTags = (ad) => {
+  const filterTagsFunction = (ad) => {
     if (filters.tags?.length > 0) {
       for (let index = 0; index < filters.tags.length; index++) {
         if (!ad.tags.includes(filters.tags[index].toLowerCase())) return false;
@@ -64,7 +66,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     return true;
   };
 
-  const filterSell = (ad) => {
+  const filterSellFunction = (ad) => {
     if (filters.sellFilter !== '') {
       if (filters.sellFilter === 'sell') {
         return ad.sale;
@@ -75,7 +77,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     return true;
   };
 
-  const filterPrice = (ad) => {
+  const filterPriceFunction = (ad) => {
     if (filters.price) {
       if (ad.price >= filters.price[0] && ad.price <= filters.price[1])
         return true;
@@ -86,18 +88,12 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
 
   const filterAds = () => {
     return advertisements
-      .filter(filterName)
-      .filter(filterTags)
-      .filter(filterSell)
-      .filter(filterPrice);
+      .filter(filterNameFunction)
+      .filter(filterTagsFunction)
+      .filter(filterSellFunction)
+      .filter(filterPriceFunction);
   };
   const filteredAds = filterAds(advertisements);
-
-  const radioEnterValues = [
-    { id: 'all', value: '', label: 'All' },
-    { id: 'sell', value: 'sell', label: 'Sell' },
-    { id: 'buy', value: 'buy', label: 'Buy' },
-  ];
 
   const calculateRange = (adsList) => {
     let min, max;
@@ -114,25 +110,49 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     return { range: [min, max], marks };
   };
 
+  const sliderChangeHandle = (event) => {
+    setFilters({ ...filters, price: event });
+  };
+
   const redirectNewAd = () => {
     Navigate('new');
   };
 
-  const sliderChangeHandle = (event) => {
-    console.log(event);
-    setFilters({ ...filters, price: event });
+  const rangeOfSlider = calculateRange(advertisements);
+
+  const enterElementHandleChange = (event) => {
+    if (event.target.name === 'name' || event.target.name === 'sellFilter') {
+      setFilters({ ...filters, [event.target.name]: event.target.value });
+    }
+
+    if (event.target.name === 'tags') {
+      const { selectedOptions } = event.target;
+      const newTags = [...selectedOptions].map((value) => value.value);
+      setFilters({ ...filters, [event.target.name]: newTags });
+    }
+    if (event.target.name === 'reset') {
+      setFilters({ ...filters, tags: [] });
+    }
   };
 
-  const rangeOfSlider = calculateRange(advertisements);
   return (
     <Page subTitle={subTitle}>
       {advertisements.length > 0 && (
         <FiltersAdsElement
-          selectOptions={tagOptions}
-          filters={filters}
-          onFiltering={handleFilters}
-          radioEnterValues={radioEnterValues}
-          sliderRange={rangeOfSlider}
+          enterElementHandleChange={enterElementHandleChange}
+          enterConfig={{ ...enterFilterConfObject, value: filters.name }}
+          selectConfig={{
+            ...selectFilterConfObject,
+            options: tagOptions,
+            value: filters.tags,
+          }}
+          radioConfig={{ ...radioFilterConfObject, value: filters.sellFilter }}
+          sliderConfig={{
+            ...sliderFilterConfObject,
+            sliderRange: rangeOfSlider,
+            defaultValue: filters.price,
+            value: filters.price,
+          }}
           sliderChangeHandle={sliderChangeHandle}
         />
       )}
@@ -142,8 +162,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
             filteredAds.map((ad) => (
               <Link
                 key={ad.id}
-                to={`/adverts/${ad.id}`}
-              >
+                to={`/adverts/${ad.id}`}>
                 <li>
                   {ad.name}, {ad.sale ? 'I sell' : 'I buy'}, {ad.price},
                   {ad.tags.join(' - ')}
