@@ -1,11 +1,23 @@
 :root {
+  --rich-black: #023c40ff;
+  --tuscany: #c3979fff;
+  --vivid-sky-blue: #0ad3ffff;
+  --aquamarine: #78ffd6ff;
+  --light-cyan: #e1faf9ff;
+
+  --main-color: #023c40ff;
+  --main-bg-color: #e1faf9ff;
+  --resalted-color: #c3979fff;
+  --resalted-bg-color: #78ffd6ff;
+}
+/*
   --main-color: darkblue;
   --main-bg-color: whitesmoke;
   --resalted-color: purple;
   --resalted-bg-color: lightgreen;
   font-size: 1em;
 }
-
+*/
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
