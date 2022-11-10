@@ -11,6 +11,11 @@ import {
   selectFilterConfObject,
   radioFilterConfObject,
   sliderFilterConfObject,
+  filterNameFunction,
+  filterTagsFunction,
+  filterSellFunction,
+  filterPriceFunction,
+  calculateSliderRange,
 } from './filtersConf';
 
 /**
@@ -18,10 +23,10 @@ import {
  * Recives the title and subTitle of the page.
  * Recives if the user is logged.
  * Recives a function to manage the onLogout event
- * @param {title:string, subTitle:string, isLogged:boolean, onLogout:function, className:string} param0
+ * @param {title:string, subTitle:string, className:string} param0
  * @returns React.Component
  */
-const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
+const AdvertsPage = ({ title, subTitle, className }) => {
   const [advertisements, setAdvertisements] = useState([]);
   const [filters, setFilters] = useState({ sellFilter: '', tags: [] });
 
@@ -46,69 +51,14 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     [styles.empty]: !advertisements.length,
   });
 
-  const filterNameFunction = (ad) => {
-    if (filters.name?.length > 0) {
-      const name = filters.name;
-      if (name) {
-        if (ad.name.toLowerCase().includes(name.toLowerCase())) return true;
-      }
-      return false;
-    }
-    return true;
-  };
-
-  const filterTagsFunction = (ad) => {
-    if (filters.tags?.length > 0) {
-      for (let index = 0; index < filters.tags.length; index++) {
-        if (!ad.tags.includes(filters.tags[index].toLowerCase())) return false;
-      }
-    }
-    return true;
-  };
-
-  const filterSellFunction = (ad) => {
-    if (filters.sellFilter !== '') {
-      if (filters.sellFilter === 'sell') {
-        return ad.sale;
-      }
-      return !ad.sale;
-    }
-
-    return true;
-  };
-
-  const filterPriceFunction = (ad) => {
-    if (filters.price) {
-      if (ad.price >= filters.price[0] && ad.price <= filters.price[1])
-        return true;
-      return false;
-    }
-    return true;
-  };
-
   const filterAds = () => {
     return advertisements
-      .filter(filterNameFunction)
-      .filter(filterTagsFunction)
-      .filter(filterSellFunction)
-      .filter(filterPriceFunction);
+      .filter((ad) => filterNameFunction(ad, filters))
+      .filter((ad) => filterTagsFunction(ad, filters))
+      .filter((ad) => filterSellFunction(ad, filters))
+      .filter((ad) => filterPriceFunction(ad, filters));
   };
   const filteredAds = filterAds(advertisements);
-
-  const calculateRange = (adsList) => {
-    let min, max;
-    let marks = {};
-    adsList.forEach((element) => {
-      if (!min) {
-        min = max = element.price;
-      } else {
-        element.price < min ? (min = element.price) : (min = min);
-        element.price > max ? (max = element.price) : (max = max);
-      }
-      marks = { ...marks, [element.price]: element.price };
-    });
-    return { range: [min, max], marks };
-  };
 
   const sliderChangeHandle = (event) => {
     setFilters({ ...filters, price: event });
@@ -118,7 +68,7 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
     Navigate('new');
   };
 
-  const rangeOfSlider = calculateRange(advertisements);
+  const rangeOfSlider = calculateSliderRange(advertisements);
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'name' || event.target.name === 'sellFilter') {
@@ -162,7 +112,8 @@ const AdvertsPage = ({ title, subTitle, isLogged, onLogout, className }) => {
             filteredAds.map((ad) => (
               <Link
                 key={ad.id}
-                to={`/adverts/${ad.id}`}>
+                to={`/adverts/${ad.id}`}
+              >
                 <li>
                   {ad.name}, {ad.sale ? 'I sell' : 'I buy'}, {ad.price},
                   {ad.tags.join(' - ')}
