@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../common/Button.js';
 import EnterElement from '../common/EnterElement.js';
 import ErrorElement from '../common/ErrorElement.js';
 import SelectElement from '../common/SelectElement.js';
@@ -117,12 +118,12 @@ const NewAdvertPage = ({ subTitle }) => {
           name='photo'
           onChange={enterElementHandleChange}
         />
-        <button
+        <Button
           type='submit'
           disabled={disableButton()}
         >
           Crear
-        </button>
+        </Button>
       </form>
       <ErrorElement
         error={error}

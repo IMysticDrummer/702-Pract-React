@@ -6,6 +6,7 @@ import { login } from './service';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from './context';
 import ErrorElement from '../common/ErrorElement';
+import { Button } from '../common/Button';
 
 const LoginPage = ({ isSignUp, className }) => {
   const [username, setUsername] = useState([]);
@@ -97,6 +98,7 @@ const LoginPage = ({ isSignUp, className }) => {
           labelText='Enter your email'
           type='email'
           name='email'
+          placeholder='someone@mail.com'
           onChange={enterElementHandleChange}
           value={email}
         />
@@ -116,12 +118,14 @@ const LoginPage = ({ isSignUp, className }) => {
             checked={remember}
           />
         )}
-        <button
+
+        <Button
+          primary
           type='submit'
           disabled={disableButton()}
         >
-          {isSignUp ? 'Sign Up' : 'Login In'}
-        </button>
+          {isSignUp ? 'Sign Up' : 'Login'}
+        </Button>
       </form>
       <ErrorElement
         error={error}

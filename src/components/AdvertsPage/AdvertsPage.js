@@ -17,6 +17,7 @@ import {
   filterPriceFunction,
   calculateSliderRange,
 } from './filtersConf';
+import { Button } from '../common/Button';
 
 /**
  * Advertisement component.
@@ -121,7 +122,7 @@ const AdvertsPage = ({ title, subTitle, className }) => {
               </Link>
             ))
           ) : (
-            <button onClick={redirectNewAd}>Crea tu primer anuncio</button>
+            <Button onClick={redirectNewAd}>Crea tu primer anuncio</Button>
           )}
         </ul>
       </section>

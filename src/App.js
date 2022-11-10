@@ -19,7 +19,7 @@ function App() {
           element={
             <Fragment>
               <Layout title={title} />
-              <Page subTitle='Sign up / Sign in for a full experience!!'>
+              <Page subTitle='Sign up / Login for a full experience!!'>
                 <LoginPage />
                 <LoginPage isSignUp='true' />
               </Page>

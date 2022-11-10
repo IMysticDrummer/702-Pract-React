@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { Button } from './Button';
 
 const SelectElement = ({
   label,
@@ -40,12 +41,12 @@ const SelectElement = ({
         {optionsList(options)}
       </select>
       {handleReset && (
-        <button
+        <Button
           name='reset'
           onClick={handleReset}
         >
           reset tags
-        </button>
+        </Button>
       )}
     </Fragment>
   );

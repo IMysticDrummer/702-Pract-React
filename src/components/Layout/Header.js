@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useLogin } from '../auth/context';
+import { Button } from '../common/Button';
 import './Header.css';
 
 const Header = ({ title }) => {
@@ -26,7 +27,7 @@ const Header = ({ title }) => {
             Advertisements list
           </NavLink>
         )}
-        {isLogged && <button onClick={onLogout}>Sign Out</button>}
+        {isLogged && <Button onClick={onLogout}>Log Out</Button>}
       </nav>
     </header>
   );

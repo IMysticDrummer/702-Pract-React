@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '../common/Button.js';
 import ConfirmElement from '../common/ConfirmElement.js';
 import ErrorElement from '../common/ErrorElement.js';
 import Page from '../Layout/Page.js';
@@ -82,11 +83,12 @@ const AdvertPage = ({ subTitle }) => {
               alt={advertisement.name}
             />
           )}
-          <button
+          <Button
             name='eraseAd'
-            onClick={handleEraseAdClick}>
+            onClick={handleEraseAdClick}
+          >
             Erase Advertisement
-          </button>
+          </Button>
         </Fragment>
       </section>
     </Page>

@@ -1,3 +1,5 @@
+import { Button } from './Button';
+
 const ConfirmElement = ({ message, response }) => {
   const handleResponse = (event) => {
     event.preventDefault();
@@ -9,18 +11,19 @@ const ConfirmElement = ({ message, response }) => {
       <h3>¡¡¡WARNING!!!</h3>
       <p>{message}</p>
       <p>Are you completely sure??!!</p>
-      <button
+
+      <Button
         name='yes'
         onClick={handleResponse}
       >
         Yes
-      </button>
-      <button
+      </Button>
+      <Button
         name='no'
         onClick={handleResponse}
       >
         NO
-      </button>
+      </Button>
     </section>
   );
 };
