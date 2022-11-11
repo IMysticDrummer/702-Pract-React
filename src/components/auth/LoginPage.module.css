@@ -1,8 +1,7 @@
 .LoginPage {
-  background-color: lightblue;
-  color: darkblue;
   position: relative;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   padding: 15px;
   left: auto;
@@ -22,4 +21,5 @@ form {
 }
 Button {
   clear: left;
+  margin: 5px;
 }

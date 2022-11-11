@@ -1,14 +1,22 @@
 :root {
   --rich-black: #023c40ff;
-  --tuscany: #c3979fff;
+  --tuscany: rgb(196, 100, 117);
   --vivid-sky-blue: #0ad3ffff;
   --aquamarine: #78ffd6ff;
   --light-cyan: #e1faf9ff;
 
   --main-color: #023c40ff;
   --main-bg-color: #e1faf9ff;
-  --resalted-color: #c3979fff;
+  --resalted-color: rgb(196, 100, 117);
   --resalted-bg-color: #78ffd6ff;
+
+  font-size: 1em;
+  --h1-font-size: 2.5rem;
+  --h2-font-size: 2rem;
+  --h3-font-size: 1.8rem;
+  --h4-font-size: 1.6rem;
+  --h5-font-size: 1.4rem;
+  --h6-font-size: 1.2rem;
 }
 /*
   --main-color: darkblue;
@@ -26,6 +34,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  color: var(--main-color);
+  background-color: var(--main-bg-color);
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+  font-style: italic;
+}
+
+h3 {
+  font-size: var(--h3-font-size);
 }
 
 code {

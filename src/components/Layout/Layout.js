@@ -8,9 +8,7 @@ const Layout = ({ title, children, className, ...props }) => {
   return (
     <main className={classNames(styles.layoutMainClass, className)}>
       <Header title={title}></Header>
-      <main>
-        <Outlet />
-      </main>
+      <Outlet />
       <footer>@ 2022 Iván García & Keepcoding</footer>
     </main>
   );

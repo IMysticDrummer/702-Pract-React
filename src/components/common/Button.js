@@ -17,7 +17,6 @@ export const Button = styled.button`
   border-radius: 5px;
   padding: 5px;
   font: inherit;
-  font-weight: bold;
   min-height: 30px;
   min-width: 60px;
   transition: background 0.3s, color 0.3s;

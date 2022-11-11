@@ -1,5 +1,6 @@
 import styles from './EnterElement.module.css';
 import classNames from 'classnames';
+import styled from 'styled-components';
 
 /**
  * Component to show an enter+label field
@@ -42,4 +43,11 @@ const EnterElement = ({ labelText, className, value, ...props }) => {
   );
 };
 
-export default EnterElement;
+const StyledEnterElement = styled(EnterElement)`
+  input {
+    color: ${'var(--resalted-color)' || 'darkblue'};
+    background-color: ${'var(--resalted-bg-color)' || 'whitesmoke'};
+  }
+`;
+
+export default StyledEnterElement;

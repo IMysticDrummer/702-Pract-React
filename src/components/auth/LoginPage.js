@@ -7,8 +7,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from './context';
 import ErrorElement from '../common/ErrorElement';
 import { Button } from '../common/Button';
+import styled from 'styled-components';
 
-const LoginPage = ({ isSignUp, className }) => {
+const LoginPage = ({ isSignUp, className, ...props }) => {
   const [username, setUsername] = useState([]);
   const [password, setPassword] = useState([]);
   const [email, setEmail] = useState([]);
@@ -74,7 +75,7 @@ const LoginPage = ({ isSignUp, className }) => {
 
   return (
     <section className={classNames(styles.LoginPage, className)}>
-      <h1>{isSignUp ? 'Sign Up' : 'Login'}</h1>
+      <h2>{isSignUp ? 'Sign Up' : 'Login'}</h2>
       <form onSubmit={handleSubmit}>
         {isSignUp && (
           <div>
@@ -122,8 +123,7 @@ const LoginPage = ({ isSignUp, className }) => {
         <Button
           primary
           type='submit'
-          disabled={disableButton()}
-        >
+          disabled={disableButton()}>
           {isSignUp ? 'Sign Up' : 'Login'}
         </Button>
       </form>
@@ -136,4 +136,9 @@ const LoginPage = ({ isSignUp, className }) => {
   );
 };
 
-export default LoginPage;
+const StyledLoginPage = styled(LoginPage)`
+  background-color: ${'var(--main-bg-color)' || 'lightblue'};
+  color: ${'var(--main-color)' || 'darkblue'};
+`;
+
+export default StyledLoginPage;

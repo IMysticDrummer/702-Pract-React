@@ -1,12 +1,16 @@
-import { Fragment } from "react";
+import { Fragment } from 'react';
+import styled from 'styled-components';
+import styles from './Page.module.css';
 
 const Page = ({ subTitle, children }) => {
   return (
-    <Fragment>
+    <div className={styles.pageClass}>
       <h2>{subTitle}</h2>
-      <section>{children}</section>
-    </Fragment>
+      {children}
+    </div>
   );
 };
 
-export default Page;
+const StyledPage = styled(Page)``;
+
+export default StyledPage;

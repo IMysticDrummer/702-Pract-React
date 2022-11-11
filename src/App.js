@@ -34,8 +34,7 @@ function App() {
 
         <Route
           path='/adverts'
-          element={<Layout title={title} />}
-        >
+          element={<Layout title={title} />}>
           <Route
             index
             element={

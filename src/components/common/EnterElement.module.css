@@ -4,11 +4,17 @@
   display: flex;
   flex-wrap: wrap;
   font-size: 1rem;
-  color: var(--main-color);
-  background-color: var(--main-bk-color);
+  margin: 3px;
 }
 
 label {
   width: 100%;
   font-size: 0.8em;
+  margin: 2px;
+}
+
+input {
+  border-radius: 3px;
+  padding: 5px;
+  margin: 2px;
 }
