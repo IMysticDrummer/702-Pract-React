@@ -62,21 +62,9 @@ export const filterSellFunction = (ad, filters) => {
 export const calculateSliderRange = (adsList) => {
   let min, max;
   let marks = {};
-  adsList.forEach((element) => {
-    if (!min) {
-      min = max = element.price;
-    } else {
-      element.price < min ? (min = element.price) : (min = min);
-      element.price > max ? (max = element.price) : (max = max);
-    }
-    // marks = {
-    //   ...marks,
-    //   [element.price]: {
-    //     style: { color: 'var(--main-color)' },
-    //     label: `${element.price}`,
-    //   },
-    // };
-  });
+
+  min = Math.min(...adsList.map((a) => a.price));
+  max = Math.max(...adsList.map((a) => a.price));
 
   let step = (max - min) / 4;
   for (let index = min; index <= max; index += step) {

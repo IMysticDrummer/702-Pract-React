@@ -1,5 +1,4 @@
 .enterElementClass {
-  /*width: 100%;*/
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -17,5 +16,5 @@ input {
   border-radius: 3px;
   padding: 5px;
   margin: 2px;
-  max-height: 1rem;
+  max-height: 2rem;
 }

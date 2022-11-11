@@ -50,12 +50,6 @@ const AdvertPage = ({ subTitle }) => {
     }
   };
 
-  const returnDate = (date) => {
-    return `${Date(date).getFullYear()} - ${
-      Date(date).getFullMonth() + 1
-    } - ${Date(date).getFullDate()} at local time`;
-  };
-
   return (
     <Page subTitle={subTitle}>
       <section className={styles.adContainerClass}>
@@ -96,11 +90,11 @@ const AdvertPage = ({ subTitle }) => {
           <p className={styles.tags}>{advertisement.tags.join(' - ')}</p>
           <p className={styles.created}>
             Created:{' '}
-            <span className={styles.date}>
+            <time className={styles.date}>
               {new Date(advertisement.createdAt).getFullYear()}-
               {new Date(advertisement.createdAt).getMonth() + 1}-
               {new Date(advertisement.createdAt).getDate()}
-            </span>
+            </time>
           </p>
           <Button
             name='eraseAd'

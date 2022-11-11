@@ -27,6 +27,11 @@
   font-size: 1em;
 }
 */
+
+* {
+  box-sizing: border-box !important;
+}
+
 body {
   position: relative;
   margin: 0;
@@ -36,7 +41,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
   width: 100%;
   padding: 0 5px;
   color: var(--main-color);

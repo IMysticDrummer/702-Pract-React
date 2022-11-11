@@ -115,10 +115,22 @@ const AdvertsPage = ({ title, subTitle, className }) => {
               <Link
                 className={styles.linkClass}
                 key={ad.id}
-                to={`/adverts/${ad.id}`}>
+                to={`/adverts/${ad.id}`}
+              >
                 <li>
-                  {ad.sale ? 'Sell' : 'Buy'}, {ad.name}, {ad.price},
-                  {ad.tags.join(' - ')}
+                  <p
+                    className={classNames(styles.adSale, {
+                      [styles.sell]: ad.sale,
+                      [styles.buy]: !ad.sale,
+                    })}
+                  >
+                    {ad.sale ? 'Sell' : 'Buy'}
+                  </p>
+                  <p className={styles.product}>{ad.name}</p>
+                  <p className={styles.priceAndTags}>
+                    <span>Price: {ad.price}</span>
+                    <span>Tags: {ad.tags.join(' - ')}</span>
+                  </p>
                 </li>
               </Link>
             ))
