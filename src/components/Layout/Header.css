@@ -23,5 +23,5 @@ header {
 }
 
 .active {
-  color: green;
+  color: var(--resalted-color);
 }
