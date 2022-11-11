@@ -48,8 +48,9 @@ const AdvertsPage = ({ title, subTitle, className }) => {
     getAds();
   }, []);
 
-  const sectionClassName = classNames(styles.AdvertsPage, className, {
+  const sectionClassName = classNames(className, styles.AdvertsPageCommon, {
     [styles.empty]: !advertisements.length,
+    [styles.AdvertsPageDefault]: !className,
   });
 
   const filterAds = () => {
@@ -112,11 +113,11 @@ const AdvertsPage = ({ title, subTitle, className }) => {
           {filteredAds.length ? (
             filteredAds.map((ad) => (
               <Link
+                className={styles.linkClass}
                 key={ad.id}
-                to={`/adverts/${ad.id}`}
-              >
+                to={`/adverts/${ad.id}`}>
                 <li>
-                  {ad.name}, {ad.sale ? 'I sell' : 'I buy'}, {ad.price},
+                  {ad.sale ? 'Sell' : 'Buy'}, {ad.name}, {ad.price},
                   {ad.tags.join(' - ')}
                 </li>
               </Link>

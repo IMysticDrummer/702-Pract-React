@@ -39,7 +39,10 @@ function App() {
             index
             element={
               <RequireAuth>
-                <AdvertsPage subTitle='Wellcome to your commerce world!' />
+                <AdvertsPage
+                  subTitle='Wellcome to your commerce world!'
+                  className='customizeAdvertsPage'
+                />
               </RequireAuth>
             }
           />
