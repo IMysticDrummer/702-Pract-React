@@ -1,7 +1,9 @@
+import styled from 'styled-components';
+import styles from './FiltersAdsElement.module.css';
 import EnterElement from '../common/EnterElement';
 import SelectElement from '../common/SelectElement';
 import Slider from '../common/Slider';
-import RadioEnter from './RadioEnter';
+import RadioEnter from '../common/RadioEnter';
 
 /**
  * Component to filtering ads.
@@ -19,7 +21,7 @@ const FiltersAdsElement = ({
   ...props
 }) => {
   return (
-    <section>
+    <aside className={styles.filtersContainerClass}>
       <EnterElement
         {...enterConfig}
         onChange={enterElementHandleChange}
@@ -42,8 +44,10 @@ const FiltersAdsElement = ({
         marks={sliderConfig.sliderRange.marks}
         onChange={sliderChangeHandle}
       />
-    </section>
+    </aside>
   );
 };
 
-export default FiltersAdsElement;
+const StyledFilters = styled(FiltersAdsElement)``;
+
+export default StyledFilters;

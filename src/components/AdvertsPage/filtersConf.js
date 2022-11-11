@@ -69,8 +69,25 @@ export const calculateSliderRange = (adsList) => {
       element.price < min ? (min = element.price) : (min = min);
       element.price > max ? (max = element.price) : (max = max);
     }
-    marks = { ...marks, [element.price]: element.price };
+    // marks = {
+    //   ...marks,
+    //   [element.price]: {
+    //     style: { color: 'var(--main-color)' },
+    //     label: `${element.price}`,
+    //   },
+    // };
   });
+
+  let step = (max - min) / 4;
+  for (let index = min; index <= max; index += step) {
+    marks = {
+      ...marks,
+      [Math.trunc(index)]: {
+        style: { color: 'var(--main-color)' },
+        label: `${Math.trunc(index)}`,
+      },
+    };
+  }
   return { range: [min, max], marks };
 };
 

@@ -1,4 +1,6 @@
 import { Fragment } from 'react';
+import styles from './SelectElement.module.css';
+import styled from 'styled-components';
 import { Button } from './Button';
 
 const SelectElement = ({
@@ -18,8 +20,7 @@ const SelectElement = ({
           return (
             <option
               key={optionElement}
-              value={optionElement}
-            >
+              value={optionElement}>
               {optionElement}
             </option>
           );
@@ -29,27 +30,27 @@ const SelectElement = ({
   };
 
   return (
-    <Fragment>
+    <article className={styles.selectClass}>
       <label htmlFor='selectElement'>{label}</label>
       <select
         name={name}
         id='selectElement'
         value={value}
         multiple={multiple}
-        onChange={onChange}
-      >
+        onChange={onChange}>
         {optionsList(options)}
       </select>
       {handleReset && (
         <Button
           name='reset'
-          onClick={handleReset}
-        >
+          onClick={handleReset}>
           reset tags
         </Button>
       )}
-    </Fragment>
+    </article>
   );
 };
 
-export default SelectElement;
+const StyledSelectElement = styled(SelectElement)``;
+
+export default StyledSelectElement;

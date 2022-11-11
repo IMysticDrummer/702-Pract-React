@@ -36,10 +36,10 @@ const EnterElement = ({ labelText, className, value, ...props }) => {
     }
   };
   return (
-    <div className={classNames(styles.enterElementClass, className)}>
+    <article className={classNames(styles.enterElementClass, className)}>
       <label htmlFor='inputElement'>{labelText}</label>
       {element()}
-    </div>
+    </article>
   );
 };
 

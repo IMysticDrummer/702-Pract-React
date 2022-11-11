@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import styles from './RadioEnter.module.css';
 
 const RadioEnter = ({ label, name, values, value, onChange, ...props }) => {
   const RadioInputGroup = ({ values, checked }) => {
@@ -13,8 +14,7 @@ const RadioEnter = ({ label, name, values, value, onChange, ...props }) => {
                 id={id}
                 name={name}
                 value={val}
-                defaultChecked={val === checked}
-              ></input>
+                defaultChecked={val === checked}></input>
               <label htmlFor={id}>{label}</label>
             </Fragment>
           );
@@ -24,7 +24,7 @@ const RadioEnter = ({ label, name, values, value, onChange, ...props }) => {
   };
 
   return (
-    <fieldset>
+    <fieldset className={styles.radioClass}>
       <legend>{label}</legend>
       <article onChange={onChange}>
         <RadioInputGroup
