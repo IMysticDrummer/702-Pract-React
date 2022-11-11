@@ -17,13 +17,14 @@
   text-decoration: inherit;
   color: inherit;
   list-style: none;
-  padding: 2%;
+  padding: 1%;
 }
 
 .AdvertsPageCommon .linkClass * {
   border: 2px solid var(--main-color);
   text-align-last: center;
   text-overflow: ellipsis;
+  background-color: var(--special-bg-color);
 }
 
 .empty {

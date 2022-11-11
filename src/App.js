@@ -9,7 +9,7 @@ import RequireAuth from './components/auth/RequireAuth';
 import Page from './components/Layout/Page';
 
 function App() {
-  const title = 'NODEPOP. Your second-hand sell/buy web';
+  const title = 'NODEPOP. Your joke second-hand sell/buy web';
 
   return (
     <div className='app'>
@@ -34,7 +34,8 @@ function App() {
 
         <Route
           path='/adverts'
-          element={<Layout title={title} />}>
+          element={<Layout title={title} />}
+        >
           <Route
             index
             element={

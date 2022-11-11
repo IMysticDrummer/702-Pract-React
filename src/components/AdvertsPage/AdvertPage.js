@@ -5,6 +5,8 @@ import ConfirmElement from '../common/ConfirmElement.js';
 import ErrorElement from '../common/ErrorElement.js';
 import Page from '../Layout/Page.js';
 import { eraseAd, getAdById } from './service.js';
+import styles from './AdvertPage.module.css';
+import classNames from 'classnames';
 
 const AdvertPage = ({ subTitle }) => {
   const [advertisement, setAdvertisement] = useState({ tags: [] });
@@ -48,9 +50,15 @@ const AdvertPage = ({ subTitle }) => {
     }
   };
 
+  const returnDate = (date) => {
+    return `${Date(date).getFullYear()} - ${
+      Date(date).getFullMonth() + 1
+    } - ${Date(date).getFullDate()} at local time`;
+  };
+
   return (
     <Page subTitle={subTitle}>
-      <section>
+      <section className={styles.adContainerClass}>
         {error && (
           <ErrorElement
             error={error}
@@ -65,30 +73,42 @@ const AdvertPage = ({ subTitle }) => {
           />
         )}
         <Fragment>
-          <p>Id: {advertisement.id}</p>
-          <p>Created: {advertisement.createdAt}</p>
-          <p>Product: {advertisement.name}</p>
-          <p>Price: {advertisement.price}</p>
-          <p>{advertisement.sale ? 'Sell' : 'Buy'}</p>
-          <p>
-            Tags:
-            {<Fragment> {advertisement.tags.join(' - ')}</Fragment>}
+          <p
+            className={classNames(styles.sellParagraph, {
+              [styles.sell]: advertisement.sale,
+              [styles.buy]: !advertisement.sale,
+            })}
+          >
+            {advertisement.sale ? 'Sell' : 'Buy'}
           </p>
-          <p>Photo: </p>
-          {!advertisement.photo ? (
-            <label>NO PHOTO AVIABLE</label>
-          ) : (
-            <img
-              src={advertisement.photo || ''}
-              alt={advertisement.name}
-            />
-          )}
+          <p className={styles.product}>{advertisement.name}</p>
+          <p className={styles.price}>$ {advertisement.price}</p>
+          <div className={styles.imgContainer}>
+            {!advertisement.photo ? (
+              <label>NO PHOTO AVIABLE</label>
+            ) : (
+              <img
+                src={advertisement.photo || ''}
+                alt={advertisement.name}
+              />
+            )}
+          </div>
+          <p className={styles.tags}>{advertisement.tags.join(' - ')}</p>
+          <p className={styles.created}>
+            Created:{' '}
+            <span className={styles.date}>
+              {new Date(advertisement.createdAt).getFullYear()}-
+              {new Date(advertisement.createdAt).getMonth() + 1}-
+              {new Date(advertisement.createdAt).getDate()}
+            </span>
+          </p>
           <Button
             name='eraseAd'
             onClick={handleEraseAdClick}
           >
             Erase Advertisement
           </Button>
+          <p>Id: {advertisement.id}</p>
         </Fragment>
       </section>
     </Page>
