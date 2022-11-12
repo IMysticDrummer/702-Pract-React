@@ -8,6 +8,7 @@ import SelectElement from '../common/SelectElement.js';
 import Page from '../Layout/Page.js';
 import { useOptions } from './optionsContex.js';
 import { postNewAd } from './service.js';
+import styles from './NewAdvertPage.module.css';
 
 const NewAdvertPage = ({ subTitle }) => {
   const [form, setForm] = useState();
@@ -79,6 +80,7 @@ const NewAdvertPage = ({ subTitle }) => {
   return (
     <Page subTitle={subTitle}>
       <form
+        className={styles.formClass}
         id='newAdForm'
         onSubmit={handleSubmit}
       >
