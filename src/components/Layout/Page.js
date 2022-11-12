@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import styled from 'styled-components';
 import styles from './Page.module.css';
 

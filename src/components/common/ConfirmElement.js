@@ -15,13 +15,13 @@ const ConfirmElement = ({ message, response }) => {
 
       <Button
         name='yes'
-        primary
         onClick={handleResponse}
       >
         Yes
       </Button>
       <Button
         name='no'
+        primary
         onClick={handleResponse}
       >
         NO

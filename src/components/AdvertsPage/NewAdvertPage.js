@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../common/Button.js';
-import CheckElement from '../common/CheckElement.js';
 import EnterElement from '../common/EnterElement.js';
 import ErrorElement from '../common/ErrorElement.js';
+import RadioEnter from '../common/RadioEnter.js';
 import SelectElement from '../common/SelectElement.js';
 import Page from '../Layout/Page.js';
 import { useOptions } from './optionsContex.js';
@@ -31,7 +31,8 @@ const NewAdvertPage = ({ subTitle }) => {
       setForm({ ...form, [event.target.name]: event.target.value });
     }
     if (event.target.name === 'sale') {
-      setForm({ ...form, [event.target.name]: event.target.checked });
+      const value = event.target.value === 'sell' ? true : false;
+      setForm({ ...form, [event.target.name]: value });
     }
     if (event.target.name === 'price') {
       setForm({ ...form, [event.target.name]: event.target.value });
@@ -70,6 +71,11 @@ const NewAdvertPage = ({ subTitle }) => {
 
   const resetError = () => setError(false);
 
+  const radioEnterValues = [
+    { id: 'sell', value: 'sell', label: 'Sell' },
+    { id: 'buy', value: 'buy', label: 'Buy' },
+  ];
+
   return (
     <Page subTitle={subTitle}>
       <form
@@ -83,10 +89,11 @@ const NewAdvertPage = ({ subTitle }) => {
           onChange={enterElementHandleChange}
           value={form?.name || ''}
         />
-        <CheckElement
-          labelText='Sale'
+        <RadioEnter
+          label='Sale'
           name='sale'
-          checked={form?.sale || false}
+          values={radioEnterValues}
+          value={form?.sale ? 'sell' : 'buy'}
           onChange={enterElementHandleChange}
         />
         <EnterElement
