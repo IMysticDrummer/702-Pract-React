@@ -15,7 +15,7 @@ import styles from './RadioEnter.module.css';
  * @returns {React.Component}
  */
 const RadioEnter = ({ label, name, values, value, onChange, ...props }) => {
-  const radioInputGroup = (values, checked, onChange) => {
+  const radioInputGroup = (values, checkedValue, onChange) => {
     return (
       <Fragment>
         {values.map((valueMapped) => {
@@ -27,7 +27,7 @@ const RadioEnter = ({ label, name, values, value, onChange, ...props }) => {
                 id={id}
                 name={name}
                 value={val}
-                checked={val === checked}
+                checked={val === checkedValue}
                 onChange={onChange}
               ></input>
               <label htmlFor={id}>{label}</label>
