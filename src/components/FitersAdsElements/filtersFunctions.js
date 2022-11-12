@@ -1,33 +1,9 @@
-export const enterFilterConfObject = {
-  labelText: 'Name filter',
-  name: 'name',
-  type: 'input',
-};
-
-export const selectFilterConfObject = {
-  label: 'Tags filter',
-  name: 'tags',
-  multiple: true,
-};
-
-const radioEnterValues = [
-  { id: 'all', value: '', label: 'All' },
-  { id: 'sell', value: 'sell', label: 'Sell' },
-  { id: 'buy', value: 'buy', label: 'Buy' },
-];
-
-export const radioFilterConfObject = {
-  label: 'Sell/Buy Filter',
-  name: 'sellFilter',
-  values: radioEnterValues,
-};
-
-export const sliderFilterConfObject = {
-  name: 'slider',
-  allowCross: false,
-  step: null,
-};
-
+/**
+ * Check if the advertisement name includes the name filter
+ * @param {Advertisement} ad
+ * @param {string} filters
+ * @returns {Boolean}
+ */
 export const filterNameFunction = (ad, filters) => {
   if (filters.name?.length > 0) {
     const name = filters.name;
@@ -39,6 +15,12 @@ export const filterNameFunction = (ad, filters) => {
   return true;
 };
 
+/**
+ * Check the advertisement tags are included in the filter array of tags recived
+ * @param {Advertisement} ad
+ * @param {Array} filters
+ * @returns {Boolean}
+ */
 export const filterTagsFunction = (ad, filters) => {
   if (filters.tags?.length > 0) {
     for (let index = 0; index < filters.tags.length; index++) {
@@ -48,6 +30,12 @@ export const filterTagsFunction = (ad, filters) => {
   return true;
 };
 
+/**
+ * Check if the advertisemen.sale is equal to the filter-shellFilter recived (should be 'shell' or 'buy')
+ * @param {string} ad
+ * @param {String} filters
+ * @returns {Boolean}
+ */
 export const filterSellFunction = (ad, filters) => {
   if (filters.sellFilter !== '') {
     if (filters.sellFilter === 'sell') {
@@ -59,6 +47,11 @@ export const filterSellFunction = (ad, filters) => {
   return true;
 };
 
+/**
+ * Function that prepares the slider configuration, concerning the range and 4 marks to select in slider
+ * @param {AdvertisementList} adsList
+ * @returns {Object} {range: [minStep, maxStep], marks}
+ */
 export const calculateSliderRange = (adsList) => {
   const MAXSTEPS = 4;
   let marks = {};
@@ -82,6 +75,12 @@ export const calculateSliderRange = (adsList) => {
   return { range: [minStep, maxStep], marks };
 };
 
+/**
+ * Check if the advertisement.price is includes in the filter-price range array given
+ * @param {Advertisement} ad
+ * @param {filters} filters
+ * @returns {Boolean}
+ */
 export const filterPriceFunction = (ad, filters) => {
   if (filters.price) {
     if (ad.price >= filters.price[0] && ad.price <= filters.price[1])

@@ -7,17 +7,20 @@ import Page from '../Layout/Page.js';
 import { eraseAd, getAdById } from './service.js';
 import styles from './AdvertPage.module.css';
 import classNames from 'classnames';
+import Spinner from '../common/Spinner.js';
 
 const AdvertPage = ({ subTitle }) => {
   const [advertisement, setAdvertisement] = useState(null);
   const [error, setError] = useState(null);
   const [erase, setErase] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const getAd = async (id) => {
       let advert;
+      setIsFetching(true);
       try {
         advert = await getAdById(id);
         setAdvertisement(advert);
@@ -25,6 +28,7 @@ const AdvertPage = ({ subTitle }) => {
         console.log(error);
         error.status === 404 ? navigate('/404') : setError(error);
       }
+      setIsFetching(false);
     };
     getAd(id);
   }, [id, navigate]);
@@ -53,6 +57,7 @@ const AdvertPage = ({ subTitle }) => {
   return (
     <Page subTitle={subTitle}>
       <section className={styles.adContainerClass}>
+        {isFetching && <Spinner />}
         {error && (
           <ErrorElement
             error={error}

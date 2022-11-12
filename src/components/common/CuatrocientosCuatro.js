@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Button } from './Button';
 
 const CuatrocientosCuatro = () => {
   return (
@@ -6,6 +8,14 @@ const CuatrocientosCuatro = () => {
       <h2>404 - PAGE NOT FOUND</h2>
       <p>You are searching for a page that doesn't exist</p>
       <p>Please be sure you are indicating the url propertly</p>
+      <p></p>
+      <Button
+        as={Link}
+        to='/adverts'
+        variant='primary'
+      >
+        Return to advertisements
+      </Button>
     </StyledCuatrocientosCuatro>
   );
 };

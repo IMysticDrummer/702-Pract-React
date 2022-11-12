@@ -8,6 +8,7 @@ import { useLogin } from './context';
 import ErrorElement from '../common/ErrorElement';
 import { Button } from '../common/Button';
 import styled from 'styled-components';
+import Spinner from '../common/Spinner';
 
 const LoginPage = ({ isSignUp, className, ...props }) => {
   const [username, setUsername] = useState([]);
@@ -51,6 +52,12 @@ const LoginPage = ({ isSignUp, className, ...props }) => {
     );
   };
 
+  const afterApiLogin = () => {
+    onLogin();
+    const to = location.state?.from?.pathname || '/';
+    navigate(to, { replace: true });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!isSignUp) {
@@ -58,9 +65,7 @@ const LoginPage = ({ isSignUp, className, ...props }) => {
         setError(null);
         setIsFetching(true);
         await login({ email, password }, remember);
-        onLogin();
-        const to = location.state?.from?.pathname || '/';
-        navigate(to, { replace: true });
+        afterApiLogin();
       } catch (error) {
         setError(error);
       }
@@ -71,9 +76,7 @@ const LoginPage = ({ isSignUp, className, ...props }) => {
         setIsFetching(true);
         await signup({ username, password, name, email });
         await login({ email, password });
-        onLogin();
-        const to = location.state?.from?.pathname || '/';
-        navigate(to, { replace: true });
+        afterApiLogin();
       } catch (error) {
         error.message = 'This user o passwors are incorrect';
         setError(error);
@@ -90,6 +93,7 @@ const LoginPage = ({ isSignUp, className, ...props }) => {
     <section className={classNames(styles.LoginPage, className)}>
       <h2>{isSignUp ? 'Sign Up' : 'Login'}</h2>
       <form onSubmit={handleSubmit}>
+        {isFetching && <Spinner />}
         {isSignUp && (
           <div>
             <EnterElement
@@ -134,7 +138,7 @@ const LoginPage = ({ isSignUp, className, ...props }) => {
         )}
 
         <Button
-          primary
+          variant='primary'
           type='submit'
           disabled={disableButton()}
         >

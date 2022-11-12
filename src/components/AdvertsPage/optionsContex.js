@@ -5,6 +5,11 @@ const OptionsContext = createContext();
 
 OptionsContext.displayName = 'TagOptions';
 
+/**
+ * Context Provider for TagOptions
+ * @param {React.Component || html} param0
+ * @returns {Context.Provider}
+ */
 export const OptionsContexProvider = ({ children }) => {
   const [tagOptions, setTagOptions] = useState([]);
 

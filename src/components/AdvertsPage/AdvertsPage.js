@@ -4,20 +4,24 @@ import classNames from 'classnames';
 import styles from './AdvertsPage.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Page from '../Layout/Page';
-import FiltersAdsElement from './FiltersAdsElement';
+import FiltersAdsElement from '../FitersAdsElements/FiltersAdsElement';
 import { useOptions } from './optionsContex';
 import {
   enterFilterConfObject,
   selectFilterConfObject,
   radioFilterConfObject,
   sliderFilterConfObject,
+} from '../FitersAdsElements/filtersConf';
+import {
   filterNameFunction,
   filterTagsFunction,
   filterSellFunction,
   filterPriceFunction,
   calculateSliderRange,
-} from './filtersConf';
+} from '../FitersAdsElements/filtersFunctions';
+
 import { Button } from '../common/Button';
+import Spinner from '../common/Spinner';
 
 /**
  * Advertisement component.
@@ -30,6 +34,7 @@ import { Button } from '../common/Button';
 const AdvertsPage = ({ title, subTitle, className }) => {
   const [advertisements, setAdvertisements] = useState();
   const [filters, setFilters] = useState({ sellFilter: '', tags: [] });
+  const [isFetching, setIsFetching] = useState(false);
 
   const { tagOptions } = useOptions();
 
@@ -39,11 +44,13 @@ const AdvertsPage = ({ title, subTitle, className }) => {
     const getAds = async () => {
       let adsList;
       try {
+        setIsFetching(true);
         adsList = await getAdvertisements();
         setAdvertisements(adsList);
       } catch (error) {
         console.log('fallo AdvertsPage useEffect');
       }
+      setIsFetching(false);
     };
     getAds();
   }, []);
@@ -53,6 +60,10 @@ const AdvertsPage = ({ title, subTitle, className }) => {
     [styles.AdvertsPageDefault]: !className,
   });
 
+  /**
+   * Filters the recived advertisements array and returns it filtered by name, tags, sell and price, selected in the filters bar
+   * @returns {Array} Filtered Advertisement List
+   */
   const filterAds = () => {
     if (!advertisements) return null;
     return advertisements
@@ -61,6 +72,7 @@ const AdvertsPage = ({ title, subTitle, className }) => {
       .filter((ad) => filterSellFunction(ad, filters))
       .filter((ad) => filterPriceFunction(ad, filters));
   };
+
   const filteredAds = filterAds(advertisements);
 
   const sliderChangeHandle = (event) => {
@@ -75,6 +87,10 @@ const AdvertsPage = ({ title, subTitle, className }) => {
     ? calculateSliderRange(advertisements)
     : null;
 
+  /**
+   * Handle events recived from the FiltesAdsElement
+   * @param {Event} event
+   */
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'name' || event.target.name === 'sellFilter') {
       setFilters({ ...filters, [event.target.name]: event.target.value });
@@ -92,6 +108,7 @@ const AdvertsPage = ({ title, subTitle, className }) => {
 
   return (
     <Page subTitle={subTitle}>
+      {isFetching && <Spinner />}
       {advertisements?.length > 0 && (
         <FiltersAdsElement
           enterElementHandleChange={enterElementHandleChange}
@@ -113,33 +130,38 @@ const AdvertsPage = ({ title, subTitle, className }) => {
       )}
       <section className={sectionClassName}>
         <ul>
-          {filteredAds?.length ? (
-            filteredAds.map((ad) => (
-              <Link
-                className={styles.linkClass}
-                key={ad.id}
-                to={`/adverts/${ad.id}`}
-              >
-                <li>
-                  <p
-                    className={classNames(styles.adSale, {
-                      [styles.sell]: ad.sale,
-                      [styles.buy]: !ad.sale,
-                    })}
-                  >
-                    {ad.sale ? 'Sell' : 'Buy'}
-                  </p>
-                  <p className={styles.product}>{ad.name}</p>
-                  <p className={styles.priceAndTags}>
-                    <span>Price: {ad.price}</span>
-                    <span>Tags: {ad.tags.join(' - ')}</span>
-                  </p>
-                </li>
-              </Link>
-            ))
-          ) : (
-            <Button onClick={redirectNewAd}>Crea tu primer anuncio</Button>
-          )}
+          {filteredAds?.length
+            ? filteredAds.map((ad) => (
+                <Link
+                  className={styles.linkClass}
+                  key={ad.id}
+                  to={`/adverts/${ad.id}`}
+                >
+                  <li>
+                    <p
+                      className={classNames(styles.adSale, {
+                        [styles.sell]: ad.sale,
+                        [styles.buy]: !ad.sale,
+                      })}
+                    >
+                      {ad.sale ? 'Sell' : 'Buy'}
+                    </p>
+                    <p className={styles.product}>{ad.name}</p>
+                    <p className={styles.priceAndTags}>
+                      <span>Price: {ad.price}</span>
+                      <span>Tags: {ad.tags.join(' - ')}</span>
+                    </p>
+                  </li>
+                </Link>
+              ))
+            : !isFetching && (
+                <Button
+                  variant='primary'
+                  onClick={redirectNewAd}
+                >
+                  Crea tu primer anuncio
+                </Button>
+              )}
         </ul>
       </section>
     </Page>

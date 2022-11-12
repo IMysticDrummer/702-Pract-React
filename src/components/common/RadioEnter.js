@@ -1,12 +1,25 @@
 import { Fragment } from 'react';
 import styles from './RadioEnter.module.css';
 
+/**
+ * This component shows a Radio Group Select.
+ * You must pass:
+ * - **label** to show in the fieldset
+ * - **name** of the component
+ * - array of **values** to configure the component. An object containing:
+ *     - *id* of the radio button to create
+ *     - *name* of the radio button to create
+ *     - current *value* selected, to control the component
+ * This component uses the current value (string value) to compare with de radiobutton value to know what's the actual checked element.
+ * @param {Object} param0 {label, name, values, value, onChange, ...props}
+ * @returns {React.Component}
+ */
 const RadioEnter = ({ label, name, values, value, onChange, ...props }) => {
-  const RadioInputGroup = ({ values, checked }) => {
+  const radioInputGroup = (values, checked, onChange) => {
     return (
       <Fragment>
-        {values.map((value) => {
-          const { id, value: val, label } = value;
+        {values.map((valueMapped) => {
+          const { id, value: val, label } = valueMapped;
           return (
             <Fragment key={id}>
               <input
@@ -14,7 +27,9 @@ const RadioEnter = ({ label, name, values, value, onChange, ...props }) => {
                 id={id}
                 name={name}
                 value={val}
-                defaultChecked={val === checked}></input>
+                checked={val === checked}
+                onChange={onChange}
+              ></input>
               <label htmlFor={id}>{label}</label>
             </Fragment>
           );
@@ -26,12 +41,7 @@ const RadioEnter = ({ label, name, values, value, onChange, ...props }) => {
   return (
     <fieldset className={styles.radioClass}>
       <legend>{label}</legend>
-      <article onChange={onChange}>
-        <RadioInputGroup
-          values={values}
-          checked={value}
-        />
-      </article>
+      {radioInputGroup(values, value, onChange)}
     </fieldset>
   );
 };

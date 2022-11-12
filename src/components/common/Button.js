@@ -2,16 +2,16 @@ import styled from 'styled-components';
 
 export const Button = styled.button`
   background: ${(props) =>
-    props.primary
+    props.variant === 'primary'
       ? 'var(--main-color)' || 'white'
       : 'var(--main-bg-color)' || 'darkblue'};
   color: ${(props) =>
-    props.primary
+    props.variant === 'primary'
       ? 'var(--main-bg-color)' || 'darkblue'
       : 'var(--main-color)' || 'white'};
   border: 2px solid
     ${(props) =>
-      props.primary
+      props.variant === 'primary'
         ? 'var(--main-bg-color)' || 'darkblue'
         : 'var(--main-color)' || 'white'};
   border-radius: 5px;
@@ -30,4 +30,5 @@ export const Button = styled.button`
     color: darkgrey;
     border-color: darkgrey;
   }
+  text-decoration: none;
 `;

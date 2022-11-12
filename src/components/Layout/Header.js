@@ -5,6 +5,11 @@ import { Button } from '../common/Button';
 import ConfirmElement from '../common/ConfirmElement';
 import './Header.css';
 
+/**
+ * Returns the Header component with a **title**
+ * @param {String} param0
+ * @returns
+ */
 const Header = ({ title }) => {
   const { isLogged, setLogout: onLogout } = useLogin();
   const [logoutRequired, setLogoutRequired] = useState(false);

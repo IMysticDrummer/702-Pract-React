@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import styles from './FiltersAdsElement.module.css';
 import EnterElement from '../common/EnterElement';
 import SelectElement from '../common/SelectElement';
@@ -48,6 +47,4 @@ const FiltersAdsElement = ({
   );
 };
 
-const StyledFilters = styled(FiltersAdsElement)``;
-
-export default StyledFilters;
+export default FiltersAdsElement;

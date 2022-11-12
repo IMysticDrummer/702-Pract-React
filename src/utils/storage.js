@@ -1,3 +1,7 @@
+/**
+ * Local Storage control with get, set, remove and clear sintax
+ * Thanks David
+ */
 const storage = {
   get(key) {
     let value = localStorage.getItem(key);

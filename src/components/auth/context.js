@@ -3,9 +3,9 @@ import { createContext, useContext, useState } from 'react';
 const LoginContext = createContext();
 
 /**
- * Custom hook to manage the user authorisation
- * @param {boolean, function, children} param0 isInitiallyLogged to indicate the starting state; onLogut to describe the handle function to run when logout; children props
- * @returns LoginContex.Provider with children
+ * Contex provider to control de authorisation. Check and manage the login status
+ * @param {{Boolean, Function, Children}} param0 isInitiallyLogged to indicate the starting state; onLogut to describe the handle function to run when logout; children props
+ * @returns {Context.Provider} LoginContex.Provider with children
  */
 export const LoginContextProvider = ({
   isInitiallyLogged,

@@ -9,9 +9,15 @@ import Page from '../Layout/Page.js';
 import { useOptions } from './optionsContex.js';
 import { postNewAd } from './service.js';
 import styles from './NewAdvertPage.module.css';
+import Spinner from '../common/Spinner.js';
 
 const NewAdvertPage = ({ subTitle }) => {
-  const [form, setForm] = useState();
+  const [form, setForm] = useState({
+    name: '',
+    sale: true,
+    price: '',
+    tags: [],
+  });
   const [error, setError] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
@@ -27,7 +33,6 @@ const NewAdvertPage = ({ subTitle }) => {
   };
 
   const enterElementHandleChange = (event) => {
-    event.preventDefault();
     if (event.target.name === 'name') {
       setForm({ ...form, [event.target.name]: event.target.value });
     }
@@ -79,6 +84,7 @@ const NewAdvertPage = ({ subTitle }) => {
 
   return (
     <Page subTitle={subTitle}>
+      {isFetching && <Spinner />}
       <form
         className={styles.formClass}
         id='newAdForm'
@@ -122,6 +128,7 @@ const NewAdvertPage = ({ subTitle }) => {
         />
         <Button
           type='submit'
+          variant='primary'
           disabled={disableButton()}
         >
           Crear

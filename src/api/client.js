@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 /**
  * Starts the axios client.
@@ -26,17 +26,17 @@ client.interceptors.response.use(
 
 /**
  * Set the axios authorisation header
- * @param {string} token 
+ * @param {string} token
  */
 export const setAuthorizationHeader = (token) => {
-  client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
 /**
  * Removes the axios authorisation header
  */
 export const removeAuthorizationHeader = () => {
-  delete client.defaults.headers.common["Authorization"];
+  delete client.defaults.headers.common['Authorization'];
 };
 
 export default client;
