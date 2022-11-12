@@ -8,6 +8,9 @@ export default ({ ...props }) => (
     <label>
       Price Range from: {props.min} to: {props.max}
     </label>
-    <Slider {...props} />
+    <Slider
+      defaultValue={props.sliderRange.range}
+      {...props}
+    />
   </article>
 );

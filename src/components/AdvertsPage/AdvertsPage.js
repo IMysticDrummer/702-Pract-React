@@ -105,7 +105,7 @@ const AdvertsPage = ({ title, subTitle, className }) => {
           sliderConfig={{
             ...sliderFilterConfObject,
             sliderRange: rangeOfSlider,
-            defaultValue: filters.price,
+
             value: filters.price,
           }}
           sliderChangeHandle={sliderChangeHandle}
