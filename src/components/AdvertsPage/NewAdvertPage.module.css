@@ -7,6 +7,6 @@
   align-items: flex-start;
 }
 
-form > button {
+.formClass > button {
   width: 100%;
 }
