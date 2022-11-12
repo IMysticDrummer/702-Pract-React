@@ -7,6 +7,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import AdvertPage from './components/AdvertsPage/AdvertPage';
 import RequireAuth from './components/auth/RequireAuth';
 import Page from './components/Layout/Page';
+import StyledCuatrocientosCuatro from './components/common/CuatrocientosCuatro';
 
 function App() {
   const title = 'NODEPOP. Your joke second-hand sell/buy web';
@@ -68,7 +69,7 @@ function App() {
 
         <Route
           path='/404'
-          element={<div>404 | Not Found</div>}
+          element={<StyledCuatrocientosCuatro />}
         />
         <Route
           path='*'
