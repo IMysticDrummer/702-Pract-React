@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../common/Button.js';
+import CheckElement from '../common/CheckElement.js';
 import EnterElement from '../common/EnterElement.js';
 import ErrorElement from '../common/ErrorElement.js';
 import SelectElement from '../common/SelectElement.js';
@@ -9,25 +10,19 @@ import { useOptions } from './optionsContex.js';
 import { postNewAd } from './service.js';
 
 const NewAdvertPage = ({ subTitle }) => {
-  const [form, setForm] = useState({
-    name: '',
-    sale: true,
-    price: 0,
-    tags: [],
-    photo: null,
-  });
+  const [form, setForm] = useState();
   const [error, setError] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
   const { tagOptions } = useOptions();
 
   const disableButton = () => {
-    return !(
-      form.name.length !== 0 &&
-      form.price > 0 &&
-      form.tags.length > 0 &&
-      !isFetching
-    );
+    const enable =
+      form?.name?.length > 0 &&
+      form?.price > 0 &&
+      form?.tags?.length > 0 &&
+      !isFetching;
+    return !enable;
   };
 
   const enterElementHandleChange = (event) => {
@@ -77,7 +72,6 @@ const NewAdvertPage = ({ subTitle }) => {
 
   return (
     <Page subTitle={subTitle}>
-      <span>Esto es new advert page</span>
       <form
         id='newAdForm'
         onSubmit={handleSubmit}
@@ -87,26 +81,25 @@ const NewAdvertPage = ({ subTitle }) => {
           type='input'
           name='name'
           onChange={enterElementHandleChange}
-          value={form.name}
+          value={form?.name || ''}
         />
-        <EnterElement
+        <CheckElement
           labelText='Sale'
-          type='checkbox'
           name='sale'
+          checked={form?.sale || false}
           onChange={enterElementHandleChange}
-          checked={form.sale}
         />
         <EnterElement
           labelText='Price'
           type='number'
           name='price'
           onChange={enterElementHandleChange}
-          value={form.price}
+          value={form?.price || ''}
         />
         <SelectElement
           label='Tags'
           name='tags'
-          value={form.tags}
+          value={form?.tags || []}
           options={tagOptions}
           multiple
           onChange={enterElementHandleChange}

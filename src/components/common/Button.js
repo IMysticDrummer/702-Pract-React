@@ -25,4 +25,9 @@ export const Button = styled.button`
     color: ${'var(--resalted-color)' || 'darkblue'};
     border-color: ${'var(--resalted-bg-color)' || 'lightblue'};
   }
+  &:disabled {
+    background: grey;
+    color: darkgrey;
+    border-color: darkgrey;
+  }
 `;

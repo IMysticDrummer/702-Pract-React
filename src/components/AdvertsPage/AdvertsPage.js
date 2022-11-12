@@ -28,7 +28,7 @@ import { Button } from '../common/Button';
  * @returns React.Component
  */
 const AdvertsPage = ({ title, subTitle, className }) => {
-  const [advertisements, setAdvertisements] = useState([]);
+  const [advertisements, setAdvertisements] = useState();
   const [filters, setFilters] = useState({ sellFilter: '', tags: [] });
 
   const { tagOptions } = useOptions();
@@ -49,11 +49,12 @@ const AdvertsPage = ({ title, subTitle, className }) => {
   }, []);
 
   const sectionClassName = classNames(className, styles.AdvertsPageCommon, {
-    [styles.empty]: !advertisements.length,
+    [styles.empty]: !advertisements,
     [styles.AdvertsPageDefault]: !className,
   });
 
   const filterAds = () => {
+    if (!advertisements) return null;
     return advertisements
       .filter((ad) => filterNameFunction(ad, filters))
       .filter((ad) => filterTagsFunction(ad, filters))
@@ -70,7 +71,9 @@ const AdvertsPage = ({ title, subTitle, className }) => {
     Navigate('new');
   };
 
-  const rangeOfSlider = calculateSliderRange(advertisements);
+  const rangeOfSlider = advertisements
+    ? calculateSliderRange(advertisements)
+    : null;
 
   const enterElementHandleChange = (event) => {
     if (event.target.name === 'name' || event.target.name === 'sellFilter') {
@@ -89,7 +92,7 @@ const AdvertsPage = ({ title, subTitle, className }) => {
 
   return (
     <Page subTitle={subTitle}>
-      {advertisements.length > 0 && (
+      {advertisements?.length > 0 && (
         <FiltersAdsElement
           enterElementHandleChange={enterElementHandleChange}
           enterConfig={{ ...enterFilterConfObject, value: filters.name }}
@@ -110,7 +113,7 @@ const AdvertsPage = ({ title, subTitle, className }) => {
       )}
       <section className={sectionClassName}>
         <ul>
-          {filteredAds.length ? (
+          {filteredAds?.length ? (
             filteredAds.map((ad) => (
               <Link
                 className={styles.linkClass}

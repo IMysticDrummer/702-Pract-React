@@ -9,7 +9,7 @@ import styles from './AdvertPage.module.css';
 import classNames from 'classnames';
 
 const AdvertPage = ({ subTitle }) => {
-  const [advertisement, setAdvertisement] = useState({ tags: [] });
+  const [advertisement, setAdvertisement] = useState(null);
   const [error, setError] = useState(null);
   const [erase, setErase] = useState(false);
   const { id } = useParams();
@@ -66,44 +66,46 @@ const AdvertPage = ({ subTitle }) => {
             response={eraseAdResponse}
           />
         )}
-        <Fragment>
-          <p
-            className={classNames(styles.sellParagraph, {
-              [styles.sell]: advertisement.sale,
-              [styles.buy]: !advertisement.sale,
-            })}
-          >
-            {advertisement.sale ? 'Sell' : 'Buy'}
-          </p>
-          <p className={styles.product}>{advertisement.name}</p>
-          <p className={styles.price}>$ {advertisement.price}</p>
-          <div className={styles.imgContainer}>
-            {!advertisement.photo ? (
-              <label>NO PHOTO AVIABLE</label>
-            ) : (
-              <img
-                src={advertisement.photo || ''}
-                alt={advertisement.name}
-              />
-            )}
-          </div>
-          <p className={styles.tags}>{advertisement.tags.join(' - ')}</p>
-          <p className={styles.created}>
-            Created:{' '}
-            <time className={styles.date}>
-              {new Date(advertisement.createdAt).getFullYear()}-
-              {new Date(advertisement.createdAt).getMonth() + 1}-
-              {new Date(advertisement.createdAt).getDate()}
-            </time>
-          </p>
-          <Button
-            name='eraseAd'
-            onClick={handleEraseAdClick}
-          >
-            Erase Advertisement
-          </Button>
-          <p>Id: {advertisement.id}</p>
-        </Fragment>
+        {advertisement && (
+          <Fragment>
+            <p
+              className={classNames(styles.sellParagraph, {
+                [styles.sell]: advertisement.sale,
+                [styles.buy]: !advertisement.sale,
+              })}
+            >
+              {advertisement.sale ? 'Sell' : 'Buy'}
+            </p>
+            <p className={styles.product}>{advertisement.name}</p>
+            <p className={styles.price}>$ {advertisement.price}</p>
+            <div className={styles.imgContainer}>
+              {!advertisement.photo ? (
+                <label>NO PHOTO AVIABLE</label>
+              ) : (
+                <img
+                  src={advertisement.photo || ''}
+                  alt={advertisement.name}
+                />
+              )}
+            </div>
+            <p className={styles.tags}>{advertisement.tags.join(' - ')}</p>
+            <p className={styles.created}>
+              Created:{' '}
+              <time className={styles.date}>
+                {new Date(advertisement.createdAt).getFullYear()}-
+                {new Date(advertisement.createdAt).getMonth() + 1}-
+                {new Date(advertisement.createdAt).getDate()}
+              </time>
+            </p>
+            <Button
+              name='eraseAd'
+              onClick={handleEraseAdClick}
+            >
+              Erase Advertisement
+            </Button>
+            <p>Id: {advertisement.id}</p>
+          </Fragment>
+        )}
       </section>
     </Page>
   );

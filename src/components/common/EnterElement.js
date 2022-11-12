@@ -24,7 +24,7 @@ const EnterElement = ({ labelText, className, value, ...props }) => {
   }
 
   const element = () => {
-    if (props.type !== 'file') {
+    if (props.type !== 'file' && props.type !== 'checkbox') {
       return (
         <input
           value={value || ''}
