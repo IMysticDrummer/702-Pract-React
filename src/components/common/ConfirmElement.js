@@ -1,4 +1,5 @@
 import { Button } from './Button';
+import styles from './ConfirmElement.module.css';
 
 const ConfirmElement = ({ message, response }) => {
   const handleResponse = (event) => {
@@ -7,13 +8,14 @@ const ConfirmElement = ({ message, response }) => {
     if (event.target.name === 'no') response(false);
   };
   return (
-    <section>
+    <section className={styles.confirmContainer}>
       <h3>¡¡¡WARNING!!!</h3>
       <p>{message}</p>
       <p>Are you completely sure??!!</p>
 
       <Button
         name='yes'
+        primary
         onClick={handleResponse}
       >
         Yes

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import EnterElement from '../common/EnterElement';
 import classNames from 'classnames';
 import styles from './LoginPage.module.css';
-import { login } from './service';
+import { login, signup } from './service';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from './context';
 import ErrorElement from '../common/ErrorElement';
@@ -65,6 +65,19 @@ const LoginPage = ({ isSignUp, className, ...props }) => {
         setError(error);
       }
       setIsFetching(false);
+    } else {
+      try {
+        setError(null);
+        setIsFetching(true);
+        await signup({ username, password, name, email });
+        await login({ email, password });
+        onLogin();
+        const to = location.state?.from?.pathname || '/';
+        navigate(to, { replace: true });
+      } catch (error) {
+        error.message = 'This user o passwors are incorrect';
+        setError(error);
+      }
     }
   };
 
@@ -123,15 +136,25 @@ const LoginPage = ({ isSignUp, className, ...props }) => {
         <Button
           primary
           type='submit'
-          disabled={disableButton()}>
+          disabled={disableButton()}
+        >
           {isSignUp ? 'Sign Up' : 'Login'}
         </Button>
       </form>
-      <ErrorElement
-        error={error}
-        altMessage='Test your cable'
-        handleErrorMessageClick={handleErrorMessageClick}
-      />
+      {error?.status === 500 && (
+        <ErrorElement
+          error={error}
+          altMessage='Test your cable'
+          handleErrorMessageClick={handleErrorMessageClick}
+        />
+      )}
+      {error?.status === 401 && (
+        <ErrorElement
+          error={error}
+          altMessage='Test your cable'
+          handleErrorMessageClick={handleErrorMessageClick}
+        />
+      )}
     </section>
   );
 };

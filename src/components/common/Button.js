@@ -3,17 +3,17 @@ import styled from 'styled-components';
 export const Button = styled.button`
   background: ${(props) =>
     props.primary
-      ? 'var(--main-bg-color)' || 'darkblue'
-      : 'var(--main-color)' || 'white'};
-  color: ${(props) =>
-    props.primary
       ? 'var(--main-color)' || 'white'
       : 'var(--main-bg-color)' || 'darkblue'};
+  color: ${(props) =>
+    props.primary
+      ? 'var(--main-bg-color)' || 'darkblue'
+      : 'var(--main-color)' || 'white'};
   border: 2px solid
     ${(props) =>
       props.primary
-        ? 'var(--main-color)' || 'white'
-        : 'var(--main-bg-color)' || 'darkblue'};
+        ? 'var(--main-bg-color)' || 'darkblue'
+        : 'var(--main-color)' || 'white'};
   border-radius: 5px;
   padding: 5px;
   font: inherit;

@@ -11,6 +11,10 @@ export const login = (credentials, remember) => {
   });
 };
 
+export const signup = (credentials) => {
+  return client.post('/auth/signup', credentials);
+};
+
 export const checkLogged = () => {
   const accessToken = storage.get('token');
   setAuthorizationHeader(accessToken);
